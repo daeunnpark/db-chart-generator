@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import 'whatwg-fetch';
-import logo from './logo.svg';
 import './App.css';
+import SearchBar from "./components/SearchBar"
+
+
+
+
 
 class App extends Component {
   handleChange = (event) => {
@@ -21,18 +25,14 @@ class App extends Component {
           alert(body);
         });
   }
+
+
   render = () => {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Does anyone hear an echo?</h2>
-        </div>
+
         <div>
-          <form className="App-intro" onSubmit={this.handleSubmit}>
-            <input type="text" onChange={this.handleChange} />
-            <input type="submit" value="Echo" />
-          </form>
+          <SearchBar/>
         </div>
       </div>
     )
@@ -40,3 +40,6 @@ class App extends Component {
 }
 
 export default App;
+
+
+/**/
