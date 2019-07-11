@@ -342,7 +342,26 @@ Highcharts.chart('container', {
     }
 });
 
+updateTable(){
+  this.state = {
+    columns : [
+      { title: 'COL1', field: 'col1' , type: 'numeric'},
+      { title: 'COL2', field: 'col2', type: 'numeric'},
+      { title: 'COL3', field: 'col3', type: 'numeric' },
+      { title: 'COL4', field: 'col4', type: 'numeric' },
+    ],
+    data: [
+      { name: 'Daeun', surname: 'DAAA', birthYear: 1987, birthCity: 63 },
+      {
+        name: 'Dasom',
+        surname: 'dddd',
+        birthYear: 2017,
+        birthCity: 34,
+      },
+    ]
 
+  };
+}
 
 
 /*{
