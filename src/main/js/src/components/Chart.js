@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { render } from 'react-dom'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
-import Button from '@material-ui/core/Button';
 
 
 
@@ -134,20 +132,13 @@ class Chart extends Component {
       pieChart_options : pie_options
     };
 
-    // This binding is necessary to make `this` work in the callback
-    this.setData = this.setData.bind(this);
-
   }
 
-  componentDidMount(){
-  console.log("DID MOUNTTT2222");
-      console.log(this.props);
-  }
 
 
   setData = () => {
-    console.log("SET DATAAAAA");
-    console.log(this.props);
+    //console.log("SET DATAAAAA");
+    //console.log(this.props);
 
     this.setState( {
       barChart_options :
@@ -172,6 +163,13 @@ class Chart extends Component {
     });
 
   }
+
+
+  componentDidMount(){
+  //console.log("DID MOUNTTT2222");
+  //console.log(this.props);
+  }
+
 
 
   render(){

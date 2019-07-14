@@ -1,3 +1,111 @@
+import React, { Component } from 'react';
+import MaterialTable from 'material-table';
+
+// default param in const?
+class Table extends Component {
+
+    constructor(props) {
+      super(props);
+      // Default
+      this.state = {
+        columns : [
+          { title: 'ID', field: 'ID' },
+          { title: 'COL2', field: 'col2'},
+          { title: 'COL3', field: 'col3', type: 'numeric' },
+          { title: 'COL4', field: 'col4', type: 'numeric' },
+        ],
+
+        data: [
+          { ID: "A", col2: 80, col3: 30, col4: 40 },
+          { ID: "B", col2: 30, col3: 20, col4: 10 },
+        ]
+      };
+    }
+
+    // Convert
+    setData = (newState) => {
+      this.props.setData({
+        columns: [
+              this.state.columns[1].title,
+              this.state.columns[2].title,
+              this.state.columns[3].title
+            ],
+        data: [
+          this.state.data[0],
+          this.state.data[1]
+        ]
+
+        });
+
+      this.setState(newState);
+
+    }
+
+    componentDidMount(){
+      console.log("DID MOUNTTT");
+      this.setData(this.state);
+    }
+
+  render = () => {
+  return (
+    <MaterialTable
+      title="Table"
+      columns={this.state.columns}
+      data={this.state.data}
+      editable={{
+        onRowAdd: newData =>
+          new Promise(resolve => {
+            setTimeout(() => {
+              resolve();
+              const data = [...this.state.data];
+              data.push(newData);
+              this.setState({ ...this.state, data });
+              this.setData(this.state);
+            }, 600);
+          }),
+        onRowUpdate: (newData, oldData) =>
+          new Promise(resolve => {
+            setTimeout(() => {
+              resolve();
+              const data = [...this.state.data];
+              //console.log(data);
+              //console.log(data[0]);
+              data[data.indexOf(oldData)] = newData;
+              this.setState({ ...this.state, data });
+              this.setData(this.state);
+            }, 600);
+          }),
+        onRowDelete: oldData =>
+          new Promise(resolve => {
+            setTimeout(() => {
+              resolve();
+              const data = [...this.state.data];
+              data.splice(data.indexOf(oldData), 1);
+              this.setState({ ...this.state, data });
+              this.setData(this.state);
+            }, 600);
+          }),
+      }}
+    />
+  );
+}
+}
+export default Table;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const options ={
     chart: {
         type: 'column'

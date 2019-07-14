@@ -4,11 +4,10 @@ import './App.css';
 import SearchBar from "./components/SearchBar"
 import Chart from "./components/Chart"
 import Table from "./components/Table"
-import Button from '@material-ui/core/Button';
 
 
-import Highcharts from 'highcharts'
-import HighchartsReact from 'highcharts-react-official'
+import Papa from 'papaparse';
+
 
 
 class App extends Component {
@@ -24,7 +23,6 @@ class App extends Component {
 }
 
   setData = (newState) => {
-    // Table value to App value
     this.setState(newState);
   }
 
@@ -34,7 +32,7 @@ class App extends Component {
 
     handleSubmit = (event) => {
       event.preventDefault();
-      this.setData();
+      //this.setData();
       /*
       var request = this.state.request.trim();
       if (!request) {
@@ -53,44 +51,38 @@ class App extends Component {
   handleSubmit2 = (event) => {
     event.preventDefault();
 
-    let file = event.target.files[0];
-    console.log(file);
 
-      /*
-       if (file) {
-           let data = new FormData();
-           data.append('file', file);
-           // axios.post('/files', data)...
-         }
-         */
+
+    Papa.parse(event.target.files[0], {
+          header: true,
+          skipEmptyLines: true,
+          complete: this.updateTable
+        });
+      }
+
+
+
+  updateTable = (result) => {
+    console.log(result);
+
+    console.log(result.meta.fields)
+
   }
 
 
 
   render = () => {
     return (
-      <div className="App">
+      //<div className="App">
+  <React.Fragment>
 
-        <div>
         <SearchBar/>
-        </div>
 
-        <Button
-        variant="contained"
-        component="label">
-        Upload File
-        <input
-          type="file"
-          accept=".csv"
-          style={{ display: "none" }}
-          onChange = {this.handleSubmit}
-        />
-      </Button>
       <Table setData = {this.setData}/>
       <Chart columns = {this.state.columns} data = {this.state.data}/>
 
 
-      </div>
+      </React.Fragment>
     )
   }
 }
