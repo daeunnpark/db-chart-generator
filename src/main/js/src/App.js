@@ -6,7 +6,7 @@ import Chart from "./components/Chart"
 import Table from "./components/Table"
 
 
-import Papa from 'papaparse';
+
 
 
 
@@ -23,6 +23,7 @@ class App extends Component {
 }
 
   setData = (newState) => {
+    console.log("SETDATA APP");
     this.setState(newState);
   }
 
@@ -48,26 +49,6 @@ class App extends Component {
           */
     }
 
-  handleSubmit2 = (event) => {
-    event.preventDefault();
-
-
-
-    Papa.parse(event.target.files[0], {
-          header: true,
-          skipEmptyLines: true,
-          complete: this.updateTable
-        });
-      }
-
-
-
-  updateTable = (result) => {
-    console.log(result);
-
-    console.log(result.meta.fields)
-
-  }
 
 
 

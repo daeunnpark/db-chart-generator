@@ -1,3 +1,19 @@
+
+
+@RestController
+public class TestController {
+    @RequestMapping(value = "/echo")
+    public String echo(@RequestParam (value = "request", defaultValue = "Hello!") String request) {
+
+      return request;
+    }
+
+}
+
+
+
+
+
 import React, { Component } from 'react';
 import MaterialTable from 'material-table';
 
