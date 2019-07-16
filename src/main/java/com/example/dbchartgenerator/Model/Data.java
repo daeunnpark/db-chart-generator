@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Column;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -13,33 +14,35 @@ public class Data {
 
 
 
-    @Id @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Integer id;
 
-    private String name;
+    @Column(name = "col1")
+    private String col1;
+    @Column(name = "col2")
+    private String col2;
+    /*
+    private String col3;
+    private String col4;
+    private String col5;
 
-    private String email;
+    private String col6;
+    private String col7;
+    private String col8;
+    private String col9;
+    private String col10;
+    */
 
 
-    /**
-  	* Default Data constructor
-  	*/
-  	public Data(String id, String name, String email) {
-  		super();
-  		this.id = id;
-  		this.name = name;
-  		this.email = email;
-  	}
 
-	//Getter/Setters for rest of fields, etc...
 
 
 	/**
 	* Returns value of id
 	* @return
 	*/
-	public String getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
@@ -47,48 +50,39 @@ public class Data {
 	* Sets new value of id
 	* @param
 	*/
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
 	/**
-	* Returns value of name
+	* Returns value of col1
 	* @return
 	*/
-	public String getName() {
-		return this.name;
+	public String getCol1() {
+		return this.col1;
 	}
 
 	/**
-	* Sets new value of name
+	* Sets new value of col1
 	* @param
 	*/
-	public void setName(String name) {
-		this.name = name;
+	public void setCol1(String col1) {
+		this.col1 = col1;
 	}
 
 	/**
-	* Returns value of email
+	* Returns value of col2
 	* @return
 	*/
-	public String getEmail() {
-		return this.email;
+	public String getCol2() {
+		return this.col2;
 	}
 
 	/**
-	* Sets new value of email
+	* Sets new value of col2
 	* @param
 	*/
-	public void setEmail(String email) {
-		this.email = email;
+	public void setCol2(String col2) {
+		this.col2 = col2;
 	}
-
-	/**
-	* Default empty Data constructor
-	*/
-	public Data() {
-		super();
-	}
-
-
 }

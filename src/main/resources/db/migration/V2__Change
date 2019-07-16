@@ -1,0 +1,18 @@
+package db.migration;
+
+
+
+import org.flywaydb.core.api.migration.spring.SpringJdbcMigration;
+import org.springframework.jdbc.core.JdbcTemplate;
+/**
+ * Created by JavaDeveloperZone on 12-05-2018.
+ */
+public class V2__Change implements SpringJdbcMigration{
+    @Override
+    public void migrate(JdbcTemplate jdbcTemplate) throws Exception {
+        jdbcTemplate.execute("USE ezops_test\n" +
+                "INSERT INTO data_table\n" +
+                "(id, col1, col2)\n" +
+                "VALUES (10, 'Hello', 'World');");
+    }
+}

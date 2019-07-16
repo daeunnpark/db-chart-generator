@@ -39,8 +39,8 @@ public class TestController {
   private DataRepository dataRepository;
 
   	@GetMapping(path="/add") // Map ONLY GET Requests
-  	public @ResponseBody String addNewUser (@RequestParam String id
-  			, @RequestParam String name) {
+  	public @ResponseBody String addNewUser (@RequestParam String name
+  			, @RequestParam String email) {
   		// @ResponseBody means the returned String is the response, not a view name
   		// @RequestParam means it is a parameter from the GET or POST request
 
@@ -72,10 +72,9 @@ public class TestController {
 
 
   		Data n = new Data();
-      n.setId(id);
-      n.setName(name);
-  		System.out.println(n.getId());
-      System.out.println(n.getName());
+
+      n.setCol1(name);
+      n.setCol2(email);
 
   		dataRepository.save(n);
 
