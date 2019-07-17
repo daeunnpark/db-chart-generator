@@ -47,6 +47,31 @@ constructor(props) {
   };
 }
 
+
+
+saveToDb = (event) => {
+  //event.preventDefault();
+
+/*
+  var request = this.state.request.trim();
+  if (!request) {
+    return;
+  }
+  */
+ /*
+ var passengerId =
+ var survived =
+ */
+  fetch(`/demo/add?PassengerId=${request}&Survived=${request}`)
+      .then(response => {
+        return response.text();
+      })
+      .then(body => {
+        alert(body);
+      });
+
+
+}
 // Table To Parent APP
 setData = () => {
   console.log("SETDATA From TABLE");
@@ -170,6 +195,7 @@ updateTable = (result) => {
                    }),
                }}
              />
+           <button onClick = {this.saveToDb}>Save to DB</button>
            <button onClick = {this.setData}>UpdateChart</button>
         </div>
         );
