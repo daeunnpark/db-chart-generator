@@ -6,10 +6,6 @@ import Chart from "./components/Chart"
 import Table from "./components/Table"
 
 
-
-
-
-
 class App extends Component {
   constructor(props){
       super(props);

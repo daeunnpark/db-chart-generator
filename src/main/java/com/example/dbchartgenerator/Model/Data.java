@@ -14,195 +14,213 @@ public class Data{
 
     @Id
     //@GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer PassengerId;
-    private Integer Survived;
-    private Integer Pclass;
-    private String Name;
-    private String Sex;
-    private Integer Age;
-    private String SibSp;
-    private String Parch;
-    private String Ticket;
-    private String Fare;
-    private String Cabin;
-    private String Embarked;
+    private Integer passengerid;
+    private Integer survived;
+    private Integer pclass;
+    private String name;
+    private String sex;
+    private Integer age;
+    private Integer sibsp;
+    private String parch;
+    private String ticket;
+    private String fare;
+    private String cabin;
+    private String embarked;
 
 
 
 
 	/**
-	* Returns value of PassengerId
+	* Returns value of passengerid
 	* @return
 	*/
-	public Integer getPassengerId() {
-		return this.PassengerId;
+	public Integer getPassengerid() {
+		return this.passengerid;
 	}
 
 	/**
-	* Sets new value of PassengerId
+	* Sets new value of passengerid
 	* @param
 	*/
-	public void setPassengerId(Integer PassengerId) {
-		this.PassengerId = PassengerId;
+	public void setPassengerid(Integer passengerid) {
+		this.passengerid = passengerid;
 	}
 
 	/**
-	* Returns value of Survived
+	* Returns value of survived
 	* @return
 	*/
 	public Integer getSurvived() {
-		return this.Survived;
+		return this.survived;
 	}
 
 	/**
-	* Sets new value of Survived
+	* Sets new value of survived
 	* @param
 	*/
-	public void setSurvived(Integer Survived) {
-		this.Survived = Survived;
+	public void setSurvived(Integer survived) {
+		this.survived = survived;
+	}
+
+  /**
+	* Returns value of pclass
+	* @return
+	*/
+	public Integer getPclass() {
+		return this.pclass;
 	}
 
 	/**
-	* Returns value of Name
+	* Sets new value of pclass
+	* @param
+	*/
+	public void setPclass(Integer pclass) {
+		this.pclass = pclass;
+	}
+
+
+
+	/**
+	* Returns value of name
 	* @return
 	*/
 	public String getName() {
-		return this.Name;
+		return this.name;
 	}
 
 	/**
-	* Sets new value of Name
+	* Sets new value of name
 	* @param
 	*/
-	public void setName(String Name) {
-		this.Name = Name;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	/**
-	* Returns value of Sex
+	* Returns value of sex
 	* @return
 	*/
 	public String getSex() {
-		return this.Sex;
+		return this.sex;
 	}
 
 	/**
-	* Sets new value of Sex
+	* Sets new value of sex
 	* @param
 	*/
-	public void setSex(String Sex) {
-		this.Sex = Sex;
+	public void setSex(String sex) {
+		this.sex = sex;
 	}
 
 	/**
-	* Returns value of Age
+	* Returns value of age
 	* @return
 	*/
 	public Integer getAge() {
-		return this.Age;
+		return this.age;
 	}
 
 	/**
-	* Sets new value of Age
+	* Sets new value of age
 	* @param
 	*/
-	public void setAge(Integer Age) {
-		this.Age = Age;
+	public void setAge(Integer age) {
+		this.age = age;
 	}
 
 	/**
-	* Returns value of SibSp
+	* Returns value of sibsp
 	* @return
 	*/
-	public String getSibSp() {
-		return this.SibSp;
+	public Integer getSibsp() {
+		return this.sibsp;
 	}
 
 	/**
-	* Sets new value of SibSp
+	* Sets new value of sibsp
 	* @param
 	*/
-	public void setSibSp(String SibSp) {
-		this.SibSp = SibSp;
+	public void setSibsp(Integer sibsp) {
+		this.sibsp = sibsp;
 	}
 
 	/**
-	* Returns value of Parch
+	* Returns value of parch
 	* @return
 	*/
 	public String getParch() {
-		return this.Parch;
+		return this.parch;
 	}
 
 	/**
-	* Sets new value of Parch
+	* Sets new value of parch
 	* @param
 	*/
-	public void setParch(String Parch) {
-		this.Parch = Parch;
+	public void setParch(String parch) {
+		this.parch = parch;
 	}
 
 	/**
-	* Returns value of Ticket
+	* Returns value of ticket
 	* @return
 	*/
 	public String getTicket() {
-		return this.Ticket;
+		return this.ticket;
 	}
 
 	/**
-	* Sets new value of Ticket
+	* Sets new value of ticket
 	* @param
 	*/
-	public void setTicket(String Ticket) {
-		this.Ticket = Ticket;
+	public void setTicket(String ticket) {
+		this.ticket = ticket;
 	}
 
 	/**
-	* Returns value of Fare
+	* Returns value of fare
 	* @return
 	*/
 	public String getFare() {
-		return this.Fare;
+		return this.fare;
 	}
 
 	/**
-	* Sets new value of Fare
+	* Sets new value of fare
 	* @param
 	*/
-	public void setFare(String Fare) {
-		this.Fare = Fare;
+	public void setFare(String fare) {
+		this.fare = fare;
 	}
 
 	/**
-	* Returns value of Cabin
+	* Returns value of cabin
 	* @return
 	*/
 	public String getCabin() {
-		return this.Cabin;
+		return this.cabin;
 	}
 
 	/**
-	* Sets new value of Cabin
+	* Sets new value of cabin
 	* @param
 	*/
-	public void setCabin(String Cabin) {
-		this.Cabin = Cabin;
+	public void setCabin(String cabin) {
+		this.cabin = cabin;
 	}
 
 	/**
-	* Returns value of Embarked
+	* Returns value of embarked
 	* @return
 	*/
 	public String getEmbarked() {
-		return this.Embarked;
+		return this.embarked;
 	}
 
 	/**
-	* Sets new value of Embarked
+	* Sets new value of embarked
 	* @param
 	*/
-	public void setEmbarked(String Embarked) {
-		this.Embarked = Embarked;
+	public void setEmbarked(String embarked) {
+		this.embarked = embarked;
 	}
 }

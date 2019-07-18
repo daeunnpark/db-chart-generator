@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -35,30 +37,12 @@ public class TestController {
   @Autowired
   private DataRepository dataRepository;
 
-  	@GetMapping(path="/add") // Map ONLY GET Requests
-  	public @ResponseBody String addNewUser (@RequestParam Integer PassengerId,
-     @RequestParam Integer Survived) {
+  	@RequestMapping(value= "/add", method = RequestMethod.POST)
+  	public @ResponseBody String addNewUser (@RequestBody Data[] data) {
 
-
-      /*
-      @RequestParam Integer Pclass,
-      @RequestParam String Name,
-      @RequestParam String Sex,
-      @RequestParam Integer Age,
-      @RequestParam String SibSp,
-      @RequestParam String Parch,
-      @RequestParam String Ticket,
-      @RequestParam String Fare,
-      @RequestParam String Cabin,
-      @RequestParam String Embarked
-
-      */
-
-  		Data n = new Data();
-      n.setPassengerId(PassengerId);
-      n.setSurvived(Survived);
-
-  		dataRepository.save(n);
+    for (Data d: data) {
+        dataRepository.save(d);
+    }
 
   		return "Saved";
   	}

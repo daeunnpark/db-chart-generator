@@ -62,6 +62,8 @@ saveToDb = (event) => {
  var passengerId =
  var survived =
  */
+console.log(this.state);
+/*
   fetch(`/demo/add?PassengerId=${request}&Survived=${request}`)
       .then(response => {
         return response.text();
@@ -69,7 +71,20 @@ saveToDb = (event) => {
       .then(body => {
         alert(body);
       });
+*/
 
+fetch(new Request('/demo/add', {
+    method: 'POST',
+    redirect: 'follow',
+    headers: new Headers({
+      'Content-Type': 'application/json'
+    })
+  }), {
+    credentials: 'include',
+    body: JSON.stringify(this.state.data)
+  })
+  .then(r => console.log)
+  .catch(e => console.error)
 
 }
 // Table To Parent APP
