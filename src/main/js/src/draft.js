@@ -1,3 +1,19 @@
+<label htmlFor="text-button-file">
+        <Button component="span" className={classes.button}>
+          Upload
+        </Button>
+      </label>
+
+
+/*
+  fetch(`/demo/add?PassengerId=${request}&Survived=${request}`)
+      .then(response => {
+        return response.text();
+      })
+      .then(body => {
+        alert(body);
+      });
+*/
 
 
 @RestController

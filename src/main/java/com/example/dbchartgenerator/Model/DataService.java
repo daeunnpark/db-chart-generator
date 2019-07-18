@@ -1,38 +1,37 @@
 package com.example.dbchartgenerator.Model;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.dbchartgenerator.Model.Data;
 import com.example.dbchartgenerator.Model.DataRepository;
 
+import java.util.List;
+
 
 @Service
 public class DataService implements IDataService {
 
-    @Autowired
-    private DataRepository dataRepository;
+  @Autowired
+  private DataRepository dataRepository;
 
-    @Override
-    public List<Data> findAll() {
-        return (List<Data>) dataRepository.findAll();
-    }
+  @Override
+  public List<Data> findAll() {
+          return (List<Data>) dataRepository.findAll();
+  }
 
-    /*
-    @Override
-    List<Data> findById(String id){
-      return (List<Data>) dataRepository.findById(id);
-    }
+  @Override
+  public Data findById(Integer id){
+          return dataRepository.findById(id).get();
+  }
 
-*/
-    @Override
-    public void saveOrUpdateData(Data data){
-      dataRepository.save(data);
+  @Override
+  public void saveData(Data data){
+          dataRepository.save(data);
+  }
 
-    }
-  	public void deleteData(Data data){
-      dataRepository.delete(data);
-    }
+  @Override
+  public void deleteData(Data data){
+          dataRepository.delete(data);
+  }
 }

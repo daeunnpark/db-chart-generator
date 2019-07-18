@@ -227,6 +227,7 @@ class Chart extends Component {
   render(){
     return(
       <div>
+      <h3>Charts</h3>
       <HighchartsReact
         highcharts={Highcharts}
         options = {this.state.barChart_options}

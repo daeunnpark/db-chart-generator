@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import MaterialTable from 'material-table';
 import Button from '@material-ui/core/Button';
+import Input from '@material-ui/core/Input';
+import "../App.css"
 
 import Papa from 'papaparse';
 
@@ -43,37 +45,18 @@ constructor(props) {
         col3: 20,
         col4: 10
       },
-    ]
+    ],
+    isLoading: false
   };
 }
 
 
+saveToDb = () => {
 
-saveToDb = (event) => {
-  //event.preventDefault();
+//this.setState({isLoading : true})
+console.log(this.state.isLoading);
 
-/*
-  var request = this.state.request.trim();
-  if (!request) {
-    return;
-  }
-  */
- /*
- var passengerId =
- var survived =
- */
-console.log(this.state);
-/*
-  fetch(`/demo/add?PassengerId=${request}&Survived=${request}`)
-      .then(response => {
-        return response.text();
-      })
-      .then(body => {
-        alert(body);
-      });
-*/
-
-fetch(new Request('/demo/add', {
+fetch(new Request('/demo/addAllData', {
     method: 'POST',
     redirect: 'follow',
     headers: new Headers({
@@ -83,10 +66,57 @@ fetch(new Request('/demo/add', {
     credentials: 'include',
     body: JSON.stringify(this.state.data)
   })
-  .then(r => console.log)
-  .catch(e => console.error)
+  .then(response => console.log)
+  .catch(error => console.error)
+
+console.log(this.state.isLoading);
+//this.setState({isLoading:false})
 
 }
+
+
+addToDb = (data) => {
+
+
+fetch(new Request('/demo/addOrUpdateData', {
+    method: 'POST',
+    redirect: 'follow',
+    headers: new Headers({
+      'Content-Type': 'application/json'
+    })
+  }), {
+    credentials: 'include',
+    body: JSON.stringify(data)
+  })
+  .then(response => console.log)
+  .catch(error => console.error)
+
+}
+
+
+deleteFromDb = (data) => {
+  //event.preventDefault();
+
+console.log("called");
+
+fetch(new Request('/demo/deleteData', {
+    method: 'POST',
+    redirect: 'follow',
+    headers: new Headers({
+      'Content-Type': 'application/json'
+    })
+  }), {
+    credentials: 'include',
+    body: JSON.stringify(data)
+  })
+  .then(response => console.log)
+  .catch(error => console.error)
+
+}
+
+
+
+
 // Table To Parent APP
 setData = () => {
   console.log("SETDATA From TABLE");
@@ -149,26 +179,30 @@ updateTable = (result) => {
     data: NewData
   });
 
+  this.saveToDb();
+
 }
-
-
     render = () => {
         return (
           <div>
-            <Button
-            variant="contained"
-            component="label">
-            Upload File
-            <input
-              type="file"
-              accept=".csv"
-              style={{ display: "none" }}
-              onChange = {this.uploadCsvFile}
+          <h2>Ezops - DB chart generator</h2>
+          <div>
+            <Input
+                id="raised-button-file"
+                    id  = "FileUploadBtn"
+                    type="file"
+                    accept=".csv"
+                  onChange = {this.uploadCsvFile}
             />
-            </Button>
+          </div>
 
+            <h3>Database Table</h3>
             <MaterialTable
-               title="Table"
+               options={{
+                  showTitle: false,
+                  toolbarButtonAlignment: "left"
+                }}
+              isLoading={this.state.isLoading}
                columns={this.state.columns}
                data={this.state.data}
                editable={{
@@ -178,7 +212,11 @@ updateTable = (result) => {
                        {
                          const data = this.state.data;
                          data.push(newData);
+                         console.log(newData);
+                         this.addToDb(newData);
+
                          this.setState({ data }, () => resolve());
+
                        }
                        resolve()
                      }, 1000)
@@ -187,10 +225,10 @@ updateTable = (result) => {
                    new Promise((resolve, reject) => {
                      setTimeout(() => {
                        {
-
                          const data = this.state.data;
                          const index = data.indexOf(oldData);
                          data[index] = newData;
+                         this.addToDb(newData);
                          this.setState({ data }, () => resolve());
                        }
                        resolve()
@@ -203,6 +241,8 @@ updateTable = (result) => {
                          let data = this.state.data;
                          const index = data.indexOf(oldData);
                          data.splice(index, 1);
+                         this.deleteFromDb(oldData);
+
                          this.setState({ data }, () => resolve());
                        }
                        resolve()
@@ -210,7 +250,6 @@ updateTable = (result) => {
                    }),
                }}
              />
-           <button onClick = {this.saveToDb}>Save to DB</button>
            <button onClick = {this.setData}>UpdateChart</button>
         </div>
         );
