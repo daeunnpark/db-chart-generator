@@ -14,7 +14,8 @@ constructor(props) {
   this.state = {
     columns: [{
         title: 'ID',
-        field: 'id'
+        field: 'id',
+        editable: 'onAdd'
       },
       {
         title: 'COL2',
@@ -123,6 +124,7 @@ setData = () => {
 
   var NewColumns = [];
   var NewData = [];
+  var NewData_t = [];
 
   this.state.columns.forEach(function(column) {
     NewColumns.push(
@@ -132,9 +134,20 @@ setData = () => {
 
   NewData = this.state.data;
 
+  console.log("HHHHHHHH" + NewData);
+
+  this.state.data.forEach(function(data) {
+
+    NewData_t.push(
+      data["embarked"]
+    );
+  });
+
+  console.log(NewData_t);
+
   this.props.setData({
     columns: NewColumns,
-    data: NewData
+    data: NewData_t
   });
 
 }
