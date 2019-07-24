@@ -21,7 +21,7 @@ import com.example.dbchartgenerator.Model.DataService;
 
 
 @RestController
-@RequestMapping(path="/demo")
+@RequestMapping(path="/db")
 public class TestController {
 
   @Autowired

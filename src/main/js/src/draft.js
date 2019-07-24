@@ -1,3 +1,296 @@
+chartDataParser_bar = (dataList) => {
+
+  var chartData = [];
+
+  dataList.forEach(function(data) {
+    var temp = Object.values(data);
+    let newObject = {};
+    newObject = {
+      name: temp[0],
+      data: temp.slice(1, -1).map(Number)
+    }
+    chartData.push(newObject);
+  });
+
+  return chartData;
+
+}
+
+
+chartDataParser_pie = (categories, dataList) => {
+
+  var chartData = [];
+
+  categories.forEach(function(category) {
+    let newObject = {};
+    var sum = 0;
+
+    dataList.forEach(function(data) {
+      sum += Number(data[category.toLowerCase()]);
+    });
+
+    newObject = {
+      name: category,
+      y: sum
+    }
+    chartData.push(newObject);
+  });
+
+  return chartData;
+
+}
+
+
+
+handleChange = (event) => {
+  this.setState({
+    request: event.target.value
+  })
+}
+
+handleSubmit = (event) => {
+  event.preventDefault();
+  //this.setData();
+  /*
+  var request = this.state.request.trim();
+  if (!request) {
+    return;
+  }
+  fetch(`/echo?request=${request}`)
+      .then(response => {
+        return response.text();
+      })
+      .then(body => {
+        alert(body);
+      });
+      */
+}
+
+
+
+GroupRow: props => (
+    <div>rowwww</div>
+),
+
+
+
+const pie_options_test = {
+  chart: {
+    plotBackgroundColor: null,
+    plotBorderWidth: null,
+    plotShadow: false,
+    type: 'pie'
+  },
+  title: {
+    text: 'Browser market shares in January, 2018'
+  },
+  tooltip: {
+    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+  },
+  plotOptions: {
+    pie: {
+      allowPointSelect: true,
+      cursor: 'pointer',
+      dataLabels: {
+        enabled: true,
+        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+      }
+    }
+  },
+  series: [{
+    name: 'Brands',
+    colorByPoint: true,
+    data: [{
+      name: '0',
+      y: 65,
+      sliced: true,
+      selected: true
+    }, {
+      name: '1',
+      y: 11.84
+    }]
+  }]
+}
+
+
+
+
+
+const pie_options = {
+  chart: {
+    plotBackgroundColor: null,
+    plotBorderWidth: null,
+    plotShadow: false,
+    type: 'pie'
+  },
+  title: {
+    text: 'Browser market shares in January, 2018'
+  },
+  tooltip: {
+    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+  },
+  plotOptions: {
+    pie: {
+      allowPointSelect: true,
+      cursor: 'pointer',
+      dataLabels: {
+        enabled: true,
+        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+      }
+    }
+  },
+  series: [{
+    name: 'Brands',
+    colorByPoint: true,
+    data: [{
+      name: 'Chrome',
+      y: 65,
+      sliced: true,
+      selected: true
+    }, {
+      name: 'Internet Explorer',
+      y: 11.84
+    }, {
+      name: 'Firefox',
+      y: 10.85
+    }, {
+      name: 'Edge',
+      y: 4.67
+    }, {
+      name: 'Safari',
+      y: 4.18
+    }, {
+      name: 'Sogou Explorer',
+      y: 1.64
+    }, {
+      name: 'Opera',
+      y: 1.6
+    }, {
+      name: 'QQ',
+      y: 1.2
+    }, {
+      name: 'Other',
+      y: 2.61
+    }]
+  }]
+}
+
+
+
+
+
+
+const bar_options = {
+  chart: {
+    type: 'column'
+  },
+  title: {
+    text: 'Monthly Average Rainfall'
+  },
+  subtitle: {
+    text: 'Source: WorldClimate.com'
+  },
+  xAxis: {
+    categories: [
+      'Jan',
+      'Feb',
+      'Mar',
+
+    ],
+    crosshair: true
+  },
+  yAxis: {
+    min: 0,
+    title: {
+      text: 'Rainfall (mm)'
+    }
+  },
+  tooltip: {
+    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+      '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+    footerFormat: '</table>',
+    shared: true,
+    useHTML: true
+  },
+  plotOptions: {
+    column: {
+      pointPadding: 0.2,
+      borderWidth: 0
+    }
+  },
+  series: [{
+    name: 'Tokyo',
+    data: [49.9, 71.5, 106.4]
+
+  }, {
+    name: 'New York',
+    data: [83.6, 78.8, 98.5]
+
+  }, {
+    name: 'London',
+    data: [48.9, 38.8, 39.3]
+
+  }, {
+    name: 'Berlin',
+    data: [42.4, 33.2, 34.5]
+
+  }]
+}
+
+
+
+
+
+const bar_options_test = {
+    title: {
+        text: 'Highcharts Histogram'
+    },
+    xAxis: [{
+    title: { text: '' },
+
+    }, {
+        title: { text: 'Histogramxxxxx' },
+        //tickInterval: 1,
+
+        //alignTicks: false,
+
+    }],
+
+    yAxis: [{
+        title: { text: '' },
+    }, {
+        title: { text: 'Histogramyyy' },
+        tickInterval:1,
+
+    }],
+
+    series: [{
+        name: 'Histogramssss',
+        type: 'histogram',
+        xAxis: 1,
+        yAxis: 1,
+        baseSeries: 's1',
+        zIndex: -1,
+
+        //binsNumber: "rice",
+    }, {
+        showInLegend: false,
+        name: 'Data',
+        visible:false,
+        data: [0,1,1,1,11,2,23,4,1,12] ,
+        id: 's1',
+
+    }]
+}
+
+
+
+
+
+
+
+
 <label htmlFor="text-button-file">
         <Button component="span" className={classes.button}>
           Upload
