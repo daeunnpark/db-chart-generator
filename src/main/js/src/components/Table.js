@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 
 import Papa from 'papaparse';
 
+import Button from '@material-ui/core/Button';
 import MaterialTable from 'material-table';
 import { default as Dialog } from './UpdateChartsDialog';
-import "../App.css"
-
 
 class Table extends Component {
   constructor(props) {
@@ -15,10 +14,6 @@ class Table extends Component {
       data: [],
       isLoading: false,
     };
-  }
-
-  search = () => {
-
   }
 
   parseCSV = (event) => {
@@ -42,6 +37,7 @@ class Table extends Component {
         cellStyle: style
       });
     });
+    (parsedColumns[0])['editable']='onAdd';
 
     result.data.forEach(function(data) {
       let newData = {};
@@ -57,7 +53,6 @@ class Table extends Component {
         newColumns : parsedColumns,
         newData: parsedData
     };
-
   }
 
   updateTable = (result) => {
@@ -66,12 +61,18 @@ class Table extends Component {
       columns: newColumns,
       data: newData
     });
-    this.saveAllToDb();
+    this.addAllDataToDb();
   }
 
+  addAllDataToDb = () => {
+    var temp = this;
+    this.state.data.forEach(function(data) {
+      temp.addDataToDb(data);
+    });
+  }
 
-  saveAllToDb = () => {
-    fetch(new Request('/db/addAllData', {
+  addDataToDb = (data) => {
+    fetch(new Request('/db/addData', {
         method: 'POST',
         redirect: 'follow',
         headers: new Headers({
@@ -79,14 +80,18 @@ class Table extends Component {
         })
       }), {
         credentials: 'include',
-        body: JSON.stringify(this.state.data)
+        body: JSON.stringify(data)
       })
-      .then(response => console.log)
-      .catch(error => console.error)
+      .then(function(response) {
+      })
+      .catch(function(error) {
+        window.alert('There has been a problem with your fetch operation: ' + error.message);
+      });
   }
 
-  addOrUpdateToDb = (data) => {
-    fetch(new Request('/db/addOrUpdateData', {
+
+  updateDataInDb = (data) => {
+    fetch(new Request('/db/updateData', {
         method: 'POST',
         redirect: 'follow',
         headers: new Headers({
@@ -100,7 +105,7 @@ class Table extends Component {
       .catch(error => console.error)
   }
 
-  deleteFromDb = (data) => {
+  deleteDataFromDb = (data) => {
     fetch(new Request('/db/deleteData', {
         method: 'POST',
         redirect: 'follow',
@@ -124,7 +129,7 @@ class Table extends Component {
       );
     });
     newData.sort(this.compare);
-    this.props.setData({
+    this.props.setChartData({
       column: category.toUpperCase(),
       data: newData
     });
@@ -144,22 +149,28 @@ class Table extends Component {
     }
   }
 
-    render = () => {
-        return (
-          <div>
-            <h2>DB chart generator</h2>
-              <div id = "fileUploader">
-                <input
-                  accept=".csv"
-                  type="file"
-                  onChange = {this.parseCSV}
-                />
-              </div>
-            <h3>Database Table</h3>
+  render = () => {
+      return (
+        <div>
+          <h1>DB chart generator</h1>
+          <div className = 'Section'>
+            <input
+              id="contained-button-file"
+              type="file"
+              accept=".csv"
+              onChange = {this.parseCSV}
+            />
+            <label htmlFor="contained-button-file">
+              <Button id = 'uploadBtn' variant="contained" color="primary" component="span">
+                Upload CSV File
+              </Button>
+            </label>
+
+            <h2>Database Table</h2>
             <MaterialTable
               options = {{
                   showTitle: false,
-                  toolbarButtonAlignment: "left",
+                  toolbarButtonAlignment: 'left',
                   headerStyle: style,
                   addRowPosition:'first'
               }}
@@ -168,17 +179,17 @@ class Table extends Component {
               data=  {this.state.data}
               search = {true}
               editable = {{
-               onRowAdd: newData =>
+                onRowAdd: newData =>
                  new Promise((resolve, reject) => {
-                   setTimeout(() => {
-                     {
-                       const data = this.state.data;
-                       data.push(newData);
-                       this.addOrUpdateToDb(newData);
-                       this.setState({ data }, () => resolve());
-                     }
-                     resolve()
-                   }, 1000)
+                     setTimeout(() => {
+                         {
+                             const data = this.state.data;
+                             data.push(newData);
+                             this.addDataToDb(data);
+                             this.setState({ data }, () => resolve());
+                         }
+                         resolve();
+                     }, 1000);
                  }),
                onRowUpdate: (newData, oldData) =>
                  new Promise((resolve, reject) => {
@@ -187,7 +198,7 @@ class Table extends Component {
                        const data = this.state.data;
                        const index = data.indexOf(oldData);
                        data[index] = newData;
-                       this.addOrUpdateToDb(newData);
+                       this.updateDataInDb(newData);
                        this.setState({ data }, () => resolve());
                      }
                      resolve()
@@ -208,10 +219,11 @@ class Table extends Component {
                  }),
                }}
              />
-          <Dialog columns = {this.state.columns} setSelectedCategoryData = {this.setSelectedCategoryData}/>
+            <Dialog columns = {this.state.columns} setSelectedCategoryData = {this.setSelectedCategoryData}/>
+          </div>
         </div>
-        );
-      }
+      );
+    }
 }
 
 const style = { padding:'0px' }

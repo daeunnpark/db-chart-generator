@@ -13,9 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import org.springframework.http.converter.HttpMessageNotReadableException;
 
 import com.example.dbchartgenerator.Model.Data;
 
+import java.util.Optional;
 
 import com.example.dbchartgenerator.Model.DataService;
 
@@ -29,20 +31,38 @@ public class TestController {
 
 
   	@RequestMapping(value= "/addAllData", method = RequestMethod.POST)
-  	public @ResponseBody String addAllNewData (@RequestBody Data[] data) {
+  	public @ResponseBody String addAllData (@RequestBody Data[] data) throws Exception{
 
-      // ResponseEntity<Void>
-      for (Data d: data) {
-          dataService.saveData(d);
-      }
-      //return new ResponseEntity<Void>(HttpStatus.OK);
+        //System.out.println(data.length);
+
+        for (Data d: data) {
+            addData(d);
+        }
 
   		return "Saved";
   	}
 
-    @RequestMapping(value= "/addOrUpdateData", method = RequestMethod.POST)
-  	public @ResponseBody String addOrUpdateData (@RequestBody Data data) {
 
+    @RequestMapping(value= "/addData", method = RequestMethod.POST)
+  	public ResponseEntity addData (@RequestBody Data data) {
+
+      Data existingData = (dataService.findById(data.getPassengerid())).orElse(null);
+
+      if(existingData==null){
+        dataService.saveData(data);
+      } else {
+        System.out.println(existingData.getPassengerid());
+        System.out.println("EXISTINGGGG");
+        return new ResponseEntity(HttpStatus.BAD_REQUEST);
+      }
+
+    return new ResponseEntity(HttpStatus.OK);
+  	}
+
+    @RequestMapping(value= "/updateData", method = RequestMethod.POST)
+    public @ResponseBody String updateData (@RequestBody Data data) {
+
+      Data existingData = (dataService.findById(data.getPassengerid())).orElse(null);
       dataService.saveData(data);
 
   		return "Saved";
@@ -63,3 +83,8 @@ public class TestController {
   	}
 
 }
+
+      // ResponseEntity<Void>
+//  System.out.println(dataService.findAll().size());
+//System.out.println(dataService.findAll().size());
+//return new ResponseEntity<Void>(HttpStatus.OK);

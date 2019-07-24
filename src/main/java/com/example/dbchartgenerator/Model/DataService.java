@@ -7,6 +7,7 @@ import com.example.dbchartgenerator.Model.Data;
 import com.example.dbchartgenerator.Model.DataRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -21,8 +22,8 @@ public class DataService implements IDataService {
   }
 
   @Override
-  public Data findById(Integer id){
-          return dataRepository.findById(id).get();
+  public Optional<Data> findById(Integer id){
+          return dataRepository.findById(id);
   }
 
   @Override

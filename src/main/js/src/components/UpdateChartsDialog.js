@@ -10,6 +10,8 @@ import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
+import "../App.css"
+
 
 class UpdateChartsDialog extends Component{
   constructor(props) {
@@ -57,7 +59,7 @@ class UpdateChartsDialog extends Component{
   render = () => {
       return (
           <div>
-            <Button variant="contained" color="primary" onClick={this.handleOpen} id ="updateChartsBtn"> Update Charts</Button>
+            <Button id ='updateChartsBtn' variant="contained" color="secondary" onClick={this.handleOpen} className = 'Btn' > Update Charts</Button>
             <Dialog disableBackdropClick disableEscapeKeyDown open={this.state.open} onClose={this.handleClose}>
               <DialogTitle>Choose a category to generate charts.</DialogTitle>
               <DialogContent>

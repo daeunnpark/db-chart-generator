@@ -15,7 +15,6 @@ import javax.persistence.Column;
 public class Data {
 
   @Id
-  //@GeneratedValue(strategy = GenerationType.SEQUENCE)
   private Integer passengerid;
   private Integer survived;
   private Integer pclass;

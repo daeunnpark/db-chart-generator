@@ -1,18 +1,10 @@
 
 .App{
-text-align: center;
-}
-
-#uploadBtn{
-margin: 50px;
-}
-
-input{
   text-align: center;
-
 }
-#updateChartsBtn{
-margin: 50px;
+
+.Section{
+  padding:20px;
 }
 
 .chartContainer{
@@ -21,4 +13,12 @@ margin: 50px;
   border-width: 1px;
   margin:30px auto;
   padding:20px;
+}
+
+input{
+  display:none;
+}
+
+#updateChartsBtn{
+  margin:50px;
 }

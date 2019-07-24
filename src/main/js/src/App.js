@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import 'whatwg-fetch';
 import './App.css';
-import SearchBar from "./components/SearchBar"
 import Chart from "./components/Chart"
 import Table from "./components/Table"
 
@@ -15,7 +14,7 @@ class App extends Component {
     };
   }
 
-  setData = (newState) => {
+  setChartData = (newState) => {
     this.setState(newState);
   }
 
@@ -23,7 +22,7 @@ class App extends Component {
     return (
       <React.Fragment>
         <div className="App">
-          <Table setData = {this.setData}/>
+          <Table setChartData = {this.setChartData}/>
           <Chart column = {this.state.column} data = {this.state.data}/>
         </div>
       </React.Fragment>

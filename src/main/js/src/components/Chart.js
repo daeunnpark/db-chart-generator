@@ -98,18 +98,18 @@ class Chart extends Component {
 
   render(){
     return(
-      <div>
-        <h3>Charts</h3>
-        <div className = 'chartContainer'>
-        <HighchartsReact
-          highcharts={Highcharts}
-          options = {this.state.barChart}/>
-        </div>
-        <div className = 'chartContainer'>
-        <HighchartsReact
-          highcharts={Highcharts}
-          options = {this.state.pieChart}/>
-        </div>
+      <div className= 'Section'>
+        <h2>Charts</h2>
+          <div className = 'chartContainer'>
+            <HighchartsReact
+              highcharts={Highcharts}
+              options = {this.state.barChart}/>
+            </div>
+          <div className = 'chartContainer'>
+            <HighchartsReact
+              highcharts={Highcharts}
+              options = {this.state.pieChart}/>
+            </div>
       </div>
     );
   }
@@ -212,8 +212,6 @@ const defaultOptions_pie = {
       }
   }
 }
-
-
 
 
 export default Chart;
