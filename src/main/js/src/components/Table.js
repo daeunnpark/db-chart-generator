@@ -16,7 +16,7 @@ class Table extends Component {
     };
   }
 
-  parseCSV = (event) => {
+  parseCsv = (event) => {
     Papa.parse(event.target.files[0], {
       header: true,
       skipEmptyLines: true,
@@ -158,7 +158,7 @@ class Table extends Component {
               id="contained-button-file"
               type="file"
               accept=".csv"
-              onChange = {this.parseCSV}
+              onChange = {this.parseCsv}
             />
             <label htmlFor="contained-button-file">
               <Button id = 'uploadBtn' variant="contained" color="primary" component="span">
@@ -218,6 +218,14 @@ class Table extends Component {
                    }, 1000)
                  }),
                }}
+               localization={{
+                    header: {
+                        actions: ''
+                    },
+                    body: {
+                        emptyDataSourceMessage: 'No Data to Display',
+                    }
+                }}
              />
             <Dialog columns = {this.state.columns} setSelectedCategoryData = {this.setSelectedCategoryData}/>
           </div>
