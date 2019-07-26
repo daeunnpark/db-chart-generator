@@ -62,6 +62,7 @@ class Table extends Component {
       data: newData
     });
     this.addAllDataToDb();
+
   }
 
   addAllDataToDb = () => {
@@ -99,7 +100,7 @@ class Table extends Component {
 
   updateDataInDb = (data) => {
 
-    fetch(new Request('/db/updateData', {
+    return fetch(new Request('/db/updateData', {
         method: 'POST',
         redirect: 'follow',
         headers: new Headers({
@@ -109,14 +110,19 @@ class Table extends Component {
         credentials: 'include',
         body: JSON.stringify(data)
       })
-      .then(response => console.log)
       .then(function(response) {
+        if(!response.ok){ //response.status ==400
+          return false;
+        }
+          return true;
       })
-      .catch(error => console.error)
+      .catch(function(error) {
+        window.alert('There has been a problem with your fetch operation: ' + error.message);
+      });
   }
 
   deleteDataFromDb = (data) => {
-    fetch(new Request('/db/deleteData', {
+    return fetch(new Request('/db/deleteData', {
         method: 'POST',
         redirect: 'follow',
         headers: new Headers({
@@ -126,8 +132,15 @@ class Table extends Component {
         credentials: 'include',
         body: JSON.stringify(data)
       })
-      .then(response => console.log)
-      .catch(error => console.error)
+      .then(function(response) {
+        if(!response.ok){ //response.status ==400
+          return false;
+        }
+          return true;
+      })
+      .catch(function(error) {
+        window.alert('There has been a problem with your fetch operation: ' + error.message);
+      });
   }
 
 
@@ -201,7 +214,7 @@ class Table extends Component {
                                 window.alert("successfully added to the database.");
                                 } else{
                                   reject();
-                                  window.alert("ID should be unique.");
+                                  window.alert("Add error - ID should be unique.");
                                 }
                             });
                          }
@@ -211,26 +224,40 @@ class Table extends Component {
                  new Promise((resolve, reject) => {
                    setTimeout(() => {
                      {
-                       const data = this.state.data;
-                       const index = data.indexOf(oldData);
-                       data[index] = newData;
-                       this.updateDataInDb(newData);
-                       this.setState({ data }, () => resolve());
+                       this.updateDataInDb(newData).then(success => {
+                          if(success){
+                            const data = this.state.data;
+                            const index = data.indexOf(oldData);
+                            data[index] = newData;
+                            this.setState({ data }, () => resolve());
+                            window.alert("successfully updated in the database.");
+                           } else{
+                             reject();
+                             window.alert("update - error");
+                           }
+                       });
                      }
-                     resolve()
+                     //resolve()
                    }, 1000)
                  }),
                onRowDelete: oldData =>
                  new Promise((resolve, reject) => {
                    setTimeout(() => {
                      {
-                       let data = this.state.data;
-                       const index = data.indexOf(oldData);
-                       data.splice(index, 1);
-                       this.deleteFromDb(oldData);
-                       this.setState({ data }, () => resolve());
+                       this.deleteDataFromDb(oldData).then(success => {
+                          if(success){
+                            let data = this.state.data;
+                            const index = data.indexOf(oldData);
+                            data.splice(index, 1);
+                            this.setState({ data }, () => resolve());
+                            window.alert("successfully Deleted from  the database.");
+                           } else{
+                             reject();
+                             window.alert("Delete - error.");
+                           }
+                       });
                      }
-                     resolve()
+                     //resolve()
                    }, 1000)
                  }),
                }}

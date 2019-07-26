@@ -31,15 +31,13 @@ public class TestController {
 
 
   	@RequestMapping(value= "/addAllData", method = RequestMethod.POST)
-  	public @ResponseBody String addAllData (@RequestBody Data[] data) throws Exception{
-
-        //System.out.println(data.length);
+  	public ResponseEntity  addAllData (@RequestBody Data[] data){
 
         for (Data d: data) {
             addData(d);
         }
 
-  		return "Saved";
+  		return new ResponseEntity(HttpStatus.OK);
   	}
 
 
@@ -51,29 +49,26 @@ public class TestController {
       if(existingData==null){
         dataService.saveData(data);
       } else {
-        System.out.println(existingData.getPassengerid());
-        System.out.println("EXISTINGGGG");
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
       }
 
-    return new ResponseEntity(HttpStatus.OK);
+      return new ResponseEntity(HttpStatus.OK);
   	}
 
     @RequestMapping(value= "/updateData", method = RequestMethod.POST)
-    public @ResponseBody String updateData (@RequestBody Data data) {
+    public ResponseEntity updateData (@RequestBody Data data) {
 
-      Data existingData = (dataService.findById(data.getPassengerid())).orElse(null);
       dataService.saveData(data);
 
-  		return "Saved";
+  		return new ResponseEntity(HttpStatus.OK);
   	}
 
     @RequestMapping(value= "/deleteData", method = RequestMethod.POST)
-  	public @ResponseBody String deleteData (@RequestBody Data data) {
+  	public ResponseEntity deleteData (@RequestBody Data data) {
 
       dataService.deleteData(data);
 
-  		return "Saved";
+  		return new ResponseEntity(HttpStatus.OK);
   	}
 
 
