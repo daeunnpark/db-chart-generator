@@ -22,4 +22,5 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'mysql:mysql-connector-java'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	compile 'org.hibernate:hibernate-search-orm:5.9.1.Final'
 }

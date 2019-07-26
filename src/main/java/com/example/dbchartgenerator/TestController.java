@@ -13,12 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+
+import java.util.List;
+
 import org.springframework.http.converter.HttpMessageNotReadableException;
 
 import com.example.dbchartgenerator.Model.Data;
 
 import java.util.Optional;
 
+import com.example.dbchartgenerator.Model.SearchService;
 import com.example.dbchartgenerator.Model.DataService;
 
 
@@ -28,6 +32,9 @@ public class TestController {
 
   @Autowired
   DataService dataService;
+
+  @Autowired
+  SearchService searchservice;
 
 
   	@RequestMapping(value= "/addAllData", method = RequestMethod.POST)
@@ -70,6 +77,23 @@ public class TestController {
 
   		return new ResponseEntity(HttpStatus.OK);
   	}
+
+    @GetMapping("/search")
+    public ResponseEntity deleteData (@RequestParam String keyword) {
+
+    System.out.println(keyword);
+
+    List searchResults = null;
+    try {
+      searchResults = searchservice.search(keyword);
+    }
+    catch (Exception ex) {
+      // here you should handle unexpected errors
+      // ...
+      // throw ex;
+    }
+      return new ResponseEntity(HttpStatus.OK);
+    }
 
 
   	@GetMapping(path="/all")

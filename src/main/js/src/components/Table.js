@@ -3,8 +3,13 @@ import React, { Component } from 'react';
 import Papa from 'papaparse';
 
 import Button from '@material-ui/core/Button';
-import MaterialTable from 'material-table';
+import Chip from '@material-ui/core/Chip';
+import MaterialTable, { MTableToolbar } from 'material-table';
+
 import { default as Dialog } from './UpdateChartsDialog';
+import TextField from '@material-ui/core/TextField';
+
+import SearchBar from './SearchBar';
 
 class Table extends Component {
   constructor(props) {
@@ -34,7 +39,8 @@ class Table extends Component {
       parsedColumns.push({
         title: field.toUpperCase(),
         field: field.toLowerCase(),
-        cellStyle: style
+        cellStyle: style,
+
       });
     });
     (parsedColumns[0])['editable']='onAdd';
@@ -55,11 +61,17 @@ class Table extends Component {
     };
   }
 
+  search = (term, rowData) => {
+  console.log("search called");
+  return term == rowData.name.length;
+}
   updateTable = (result) => {
     const{ newColumns, newData } = this.parseData_table(result);
     this.setState({
       columns: newColumns,
-      data: newData
+      data: newData,
+
+
     });
     this.addAllDataToDb();
 
@@ -84,8 +96,7 @@ class Table extends Component {
         body: JSON.stringify(data)
       })
       .then(function(response) {
-        if(!response.ok){ //response.status ==400
-          //window.alert('Something went wrong in the database: ' + response.status);
+        if(!response.ok){
           return false;
         }
           return true;
@@ -111,7 +122,7 @@ class Table extends Component {
         body: JSON.stringify(data)
       })
       .then(function(response) {
-        if(!response.ok){ //response.status ==400
+        if(!response.ok){
           return false;
         }
           return true;
@@ -133,7 +144,7 @@ class Table extends Component {
         body: JSON.stringify(data)
       })
       .then(function(response) {
-        if(!response.ok){ //response.status ==400
+        if(!response.ok){
           return false;
         }
           return true;
@@ -193,14 +204,15 @@ class Table extends Component {
             <MaterialTable
               options = {{
                   showTitle: false,
+                  search : false,
                   toolbarButtonAlignment: 'left',
                   headerStyle: style,
                   addRowPosition:'first'
               }}
               isLoading = {this.state.isLoading}
               columns = {this.state.columns}
-              data=  {this.state.data}
-              search = {true}
+              data= {this.state.data}
+
               editable = {{
                 onRowAdd: newData =>
                  new Promise((resolve, reject) => {
@@ -237,7 +249,6 @@ class Table extends Component {
                            }
                        });
                      }
-                     //resolve()
                    }, 1000)
                  }),
                onRowDelete: oldData =>
@@ -257,7 +268,6 @@ class Table extends Component {
                            }
                        });
                      }
-                     //resolve()
                    }, 1000)
                  }),
                }}
@@ -268,6 +278,14 @@ class Table extends Component {
                     body: {
                         emptyDataSourceMessage: 'No Data to Display',
                     }
+                }}
+                components={{
+                        Toolbar: props => (
+                                    <div>
+                                      <MTableToolbar {...props} />
+                                        <SearchBar/>
+                                    </div>
+                                  )
                 }}
              />
             <Dialog columns = {this.state.columns} setSelectedCategoryData = {this.setSelectedCategoryData}/>
