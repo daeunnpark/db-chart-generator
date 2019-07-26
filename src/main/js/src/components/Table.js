@@ -72,7 +72,7 @@ class Table extends Component {
   }
 
   addDataToDb = (data) => {
-    fetch(new Request('/db/addData', {
+    return fetch(new Request('/db/addData', {
         method: 'POST',
         redirect: 'follow',
         headers: new Headers({
@@ -83,14 +83,22 @@ class Table extends Component {
         body: JSON.stringify(data)
       })
       .then(function(response) {
+        if(!response.ok){ //response.status ==400
+          //window.alert('Something went wrong in the database: ' + response.status);
+          return false;
+        }
+          return true;
       })
       .catch(function(error) {
         window.alert('There has been a problem with your fetch operation: ' + error.message);
       });
+
+
   }
 
 
   updateDataInDb = (data) => {
+
     fetch(new Request('/db/updateData', {
         method: 'POST',
         redirect: 'follow',
@@ -102,6 +110,8 @@ class Table extends Component {
         body: JSON.stringify(data)
       })
       .then(response => console.log)
+      .then(function(response) {
+      })
       .catch(error => console.error)
   }
 
@@ -183,12 +193,18 @@ class Table extends Component {
                  new Promise((resolve, reject) => {
                      setTimeout(() => {
                          {
-                             const data = this.state.data;
-                             data.push(newData);
-                             this.addDataToDb(data);
-                             this.setState({ data }, () => resolve());
+                            this.addDataToDb(newData).then(success => {
+                               if(success){
+                                 const data = this.state.data;
+                                 data.push(newData);
+                                 this.setState({ data }, () => resolve());
+                                window.alert("successfully added to the database.");
+                                } else{
+                                  reject();
+                                  window.alert("ID should be unique.");
+                                }
+                            });
                          }
-                         resolve();
                      }, 1000);
                  }),
                onRowUpdate: (newData, oldData) =>
