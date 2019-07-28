@@ -10,6 +10,7 @@ import { default as Dialog } from './UpdateChartsDialog';
 import TextField from '@material-ui/core/TextField';
 
 import SearchBar from './SearchBar';
+import Alert from './Alert';
 
 class Table extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class Table extends Component {
       columns: [],
       data: [],
       isLoading: false,
+      success:false,
     };
   }
 
@@ -183,6 +185,12 @@ class Table extends Component {
     }
   }
 
+  setMsg = ( newSuccess) => {
+//const flag= this.state.flag;
+  this.setState({success: newSuccess });
+
+}
+
   render = () => {
       return (
         <div>
@@ -218,15 +226,19 @@ class Table extends Component {
                  new Promise((resolve, reject) => {
                      setTimeout(() => {
                          {
+                            //this.setMsg("successfully added to the database.");
                             this.addDataToDb(newData).then(success => {
                                if(success){
                                  const data = this.state.data;
                                  data.push(newData);
                                  this.setState({ data }, () => resolve());
-                                window.alert("successfully added to the database.");
+                                this.setMsg(true);
+
+                                //window.alert("successfully added to the database.");
                                 } else{
                                   reject();
-                                  window.alert("Add error - ID should be unique.");
+                                  //window.alert("Add error - ID should be unique.");
+                                  this.setMsg(false);
                                 }
                             });
                          }
@@ -242,10 +254,12 @@ class Table extends Component {
                             const index = data.indexOf(oldData);
                             data[index] = newData;
                             this.setState({ data }, () => resolve());
-                            window.alert("successfully updated in the database.");
+                            this.setMsg(true);
+
+
                            } else{
                              reject();
-                             window.alert("update - error");
+                             this.setMsg(false);
                            }
                        });
                      }
@@ -261,10 +275,10 @@ class Table extends Component {
                             const index = data.indexOf(oldData);
                             data.splice(index, 1);
                             this.setState({ data }, () => resolve());
-                            window.alert("successfully Deleted from  the database.");
+                            this.setMsg(true);
                            } else{
                              reject();
-                             window.alert("Delete - error.");
+                             this.setMsg(false);
                            }
                        });
                      }
@@ -290,7 +304,9 @@ class Table extends Component {
              />
             <Dialog columns = {this.state.columns} setSelectedCategoryData = {this.setSelectedCategoryData}/>
           </div>
+          <Alert success= {this.state.success}/>
         </div>
+
       );
     }
 }
