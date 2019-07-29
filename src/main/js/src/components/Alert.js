@@ -1,55 +1,44 @@
 import React, { Component } from 'react';
 
-import Button from '@material-ui/core/Button';
-import Snackbar from '@material-ui/core/Snackbar';
-import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
-import { withStyles } from '@material-ui/styles';
+import CloseIcon from '@material-ui/icons/Close';
+import Snackbar from '@material-ui/core/Snackbar';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
+import * as messages from '../constants/messages';
+import * as styles from '../constants/styles';
 
-import * as messages from '../chartSettings/messages';
+/*
 import ErrorIcon from '@material-ui/icons/Error';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import SnackbarContent from '@material-ui/core/SnackbarContent';
+*/
 
-const SUCCESS = messages.SUCCESS;
-const ERROR = messages.ERROR;
+const message_SUCCESS = messages.SUCCESS;
+const message_ERROR = messages.ERROR;
 
+const icons = styles.ICONS;
+const icon_styles = styles.ICON_STYLES;
+const snackBarContent_styles = styles.SNACKBARCONTENT_STYlES;
+const snackBarContent_styles_span = styles.SNACKBARCONTENT_STYlES_SPAN;
 
-const icons = [
-  CheckCircleIcon, ErrorIcon
-];
-
-const iconStyle = {
-  marginRight: 10
-};
-
-const snackbarContentStyles = [
-  {backgroundColor: 'blue', display: 'flex', alignItems: 'center'}, {backgroundColor: 'red' , display: 'flex', alignItems: 'center'}
-]
-
-const snackbarContentStyle_span = {
-  display: 'flex',
-  alignItems: 'center'
-};
-
-
+/*
+Represents database update alert.
+*/
 class Alert extends Component {
   constructor(props) {
-  super(props);
-  this.state = {
-    open: false,
-    vertical: 'top',
-    horizontal: 'center',
-    message: '',
-    success: false,
-    flag: 0
-  };
+    super(props);
+    this.state = {
+      open: false,
+      vertical: 'top',
+      horizontal: 'center',
+      message: '',
+      success: false,
+      flag: 0
+    };
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps !== this.props) {
-
-      const newMessage = this.props.success ? SUCCESS : ERROR;
+      const newMessage = this.props.success ? message_SUCCESS : message_ERROR;
       const newFlag = this.props.success ? 0 : 1;
       this.setState({
         message: newMessage,
@@ -59,22 +48,15 @@ class Alert extends Component {
     }
   }
 
-  handleClose = () => {
-    this.setState({
-      open: false
-    });
-  }
-
   messageWrapper(){
       const Icon = icons[this.state.flag];
-      const snackbarContentStyle = snackbarContentStyles[this.state.flag];
+      const snackbarContentStyle = snackBarContent_styles[this.state.flag];
       return(
           <SnackbarContent
             style = {snackbarContentStyle}
-            aria-describedby="client-snackbar"
             message={
-              <span id="client-snackbar" style = {snackbarContentStyle_span}>
-                <Icon style = {iconStyle}/>
+              <span id="client-snackbar" style = {snackBarContent_styles_span}>
+                <Icon style = {icon_styles}/>
                 {this.state.message}
               </span>
             }
@@ -85,6 +67,12 @@ class Alert extends Component {
             ]}
           />
       );
+  }
+
+  handleClose = () => {
+    this.setState({
+      open: false
+    });
   }
 
   render = () => {
@@ -100,8 +88,9 @@ class Alert extends Component {
           </Snackbar>
         </div>
       );
-    }
   }
+
+}
 
 
 export default Alert;

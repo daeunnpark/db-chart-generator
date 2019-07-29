@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
-
-import Papa from 'papaparse';
-
-import Button from '@material-ui/core/Button';
-import Chip from '@material-ui/core/Chip';
 import MaterialTable, { MTableToolbar } from 'material-table';
-
-import { default as Dialog } from './UpdateChartsDialog';
-import TextField from '@material-ui/core/TextField';
-
+import Button from '@material-ui/core/Button';
 import SearchBar from './SearchBar';
-import Alert from './Alert';
+import Papa from 'papaparse';
+import { default as Modal } from './Modal';
+import { default as Alert } from './Alert';
 
+/*
+Represents database table.
+*/
 class Table extends Component {
   constructor(props) {
     super(props);
@@ -42,7 +39,6 @@ class Table extends Component {
         title: field.toUpperCase(),
         field: field.toLowerCase(),
         cellStyle: style,
-
       });
     });
     (parsedColumns[0])['editable']='onAdd';
@@ -63,20 +59,13 @@ class Table extends Component {
     };
   }
 
-  search = (term, rowData) => {
-  console.log("search called");
-  return term == rowData.name.length;
-}
   updateTable = (result) => {
     const{ newColumns, newData } = this.parseData_table(result);
     this.setState({
       columns: newColumns,
       data: newData,
-
-
     });
     this.addAllDataToDb();
-
   }
 
   addAllDataToDb = () => {
@@ -106,13 +95,9 @@ class Table extends Component {
       .catch(function(error) {
         window.alert('There has been a problem with your fetch operation: ' + error.message);
       });
-
-
   }
 
-
   updateDataInDb = (data) => {
-
     return fetch(new Request('/db/updateData', {
         method: 'POST',
         redirect: 'follow',
@@ -156,7 +141,6 @@ class Table extends Component {
       });
   }
 
-
   setSelectedCategoryData = (category) => {
     var newData = [];
     this.state.data.forEach(function(data) {
@@ -185,11 +169,11 @@ class Table extends Component {
     }
   }
 
-  setMsg = ( newSuccess) => {
-//const flag= this.state.flag;
-  this.setState({success: newSuccess });
-
-}
+  setAlert = (bool) => {
+    this.setState({
+      success: bool
+    });
+  }
 
   render = () => {
       return (
@@ -220,68 +204,55 @@ class Table extends Component {
               isLoading = {this.state.isLoading}
               columns = {this.state.columns}
               data= {this.state.data}
-
               editable = {{
                 onRowAdd: newData =>
                  new Promise((resolve, reject) => {
                      setTimeout(() => {
-                         {
-                            //this.setMsg("successfully added to the database.");
                             this.addDataToDb(newData).then(success => {
                                if(success){
                                  const data = this.state.data;
                                  data.push(newData);
                                  this.setState({ data }, () => resolve());
-                                this.setMsg(true);
-
-                                //window.alert("successfully added to the database.");
+                                 this.setAlert(true);
                                 } else{
                                   reject();
-                                  //window.alert("Add error - ID should be unique.");
-                                  this.setMsg(false);
+                                  this.setAlert(false);
                                 }
                             });
-                         }
                      }, 1000);
                  }),
                onRowUpdate: (newData, oldData) =>
                  new Promise((resolve, reject) => {
                    setTimeout(() => {
-                     {
                        this.updateDataInDb(newData).then(success => {
                           if(success){
                             const data = this.state.data;
                             const index = data.indexOf(oldData);
                             data[index] = newData;
                             this.setState({ data }, () => resolve());
-                            this.setMsg(true);
-
-
+                            this.setAlert(true);
                            } else{
                              reject();
-                             this.setMsg(false);
+                             this.setAlert(false);
                            }
                        });
-                     }
                    }, 1000)
                  }),
                onRowDelete: oldData =>
                  new Promise((resolve, reject) => {
                    setTimeout(() => {
-                     {
                        this.deleteDataFromDb(oldData).then(success => {
                           if(success){
                             let data = this.state.data;
                             const index = data.indexOf(oldData);
                             data.splice(index, 1);
                             this.setState({ data }, () => resolve());
-                            this.setMsg(true);
+                            this.setAlert(true);
                            } else{
                              reject();
-                             this.setMsg(false);
+                             this.setAlert(false);
                            }
                        });
-                     }
                    }, 1000)
                  }),
                }}
@@ -302,11 +273,10 @@ class Table extends Component {
                                   )
                 }}
              />
-            <Dialog columns = {this.state.columns} setSelectedCategoryData = {this.setSelectedCategoryData}/>
+            <Modal columns = {this.state.columns} setSelectedCategoryData = {this.setSelectedCategoryData}/>
           </div>
           <Alert success= {this.state.success}/>
         </div>
-
       );
     }
 }

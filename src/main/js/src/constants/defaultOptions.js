@@ -1,3 +1,5 @@
+// Constant variables for default chart options - Chart.js
+
 export const SOURCE= 'Source: kaggle';
 
 export const BAR = {
@@ -97,3 +99,8 @@ export const PIE = {
       }
   }
 };
+
+/*
+export const HISTO require('highcharts/modules/histogram-bellcurve');
+export const NODATA require('highcharts/modules/no-data-to-display.js');
+*/

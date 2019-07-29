@@ -9,11 +9,12 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-
 import "../App.css"
 
-
-class UpdateChartsDialog extends Component{
+/*
+Represents the dialog followed by pressing Update Charts button.
+*/
+class Modal extends Component{
   constructor(props) {
     super(props);
     this.state = {
@@ -55,7 +56,6 @@ class UpdateChartsDialog extends Component{
     });
   }
 
-
   render = () => {
       return (
           <div>
@@ -90,7 +90,8 @@ class UpdateChartsDialog extends Component{
           </div>
         );
       }
+
 }
 
 
-export default UpdateChartsDialog;
+export default Modal;

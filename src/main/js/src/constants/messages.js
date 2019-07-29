@@ -1,6 +1,7 @@
+// Constant variables for alert messages - Alert.js
 
-export const SUCCESS = 'Database has been successfully updated.'
-export const ERROR = 'Error in the database. Please try again.'
+export const SUCCESS = 'Database has been successfully updated.';
+export const ERROR = 'Error in the database. Please try again.';
 
 /*
 export const SUCCESS_DB_ADD = 'Data is successfully added to the database.'

@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
-
-import * as defaultOptions from '../chartSettings/defaultOptions';
-
+import * as defaultOptions from '../constants/defaultOptions';
+// To Constant file?
 require('highcharts/modules/histogram-bellcurve')(Highcharts);
 require('highcharts/modules/no-data-to-display.js')(Highcharts);
 
+/*const HISTO = defaultOptions.HISTO;
+const NODATA = defaultOptions.NODATA;*/
+
+
+const source = defaultOptions.SOURCE;
 const defaultOptions_bar = defaultOptions.BAR;
 const defaultOptions_pie = defaultOptions.PIE;
-const source = defaultOptions.SOURCE;
 
+/*
+Represents chart section containig a bar chart and a pie chart.
+*/
 class Chart extends Component {
   constructor(props) {
     super(props);
@@ -64,7 +70,6 @@ class Chart extends Component {
     return counts;
   }
 
-
   setChartData = (newColumn, newCategories, newBarChartData, newPieChartData) => {
     this.setState({
       barChart: {
@@ -101,7 +106,6 @@ class Chart extends Component {
     });
   }
 
-
   render(){
     return(
       <div className= 'Section'>
@@ -119,8 +123,8 @@ class Chart extends Component {
       </div>
     );
   }
-}
 
+}
 
 
 export default Chart;
