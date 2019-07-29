@@ -22,7 +22,7 @@ class SearchBar extends Component {
   search = (event) => {
       fetch(`/db/search/?keyword=${this.state.value}`, {
         credentials: 'include',
-        method: 'get'
+        method: 'GET'
       })
       .then(function(response) {
         if(!response.ok){

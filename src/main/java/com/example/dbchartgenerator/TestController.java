@@ -6,12 +6,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 
 
 import java.util.List;
@@ -36,9 +40,9 @@ public class TestController {
   @Autowired
   SearchService searchservice;
 
-
-  	@RequestMapping(value= "/addAllData", method = RequestMethod.POST)
-  	public ResponseEntity  addAllData (@RequestBody Data[] data){
+    @PostMapping("/addAllData")
+  	public ResponseEntity addAllData(@RequestBody Data[] data){
+        dataService.deleteAll();
 
         for (Data d: data) {
             addData(d);
@@ -47,9 +51,8 @@ public class TestController {
   		return new ResponseEntity(HttpStatus.OK);
   	}
 
-
-    @RequestMapping(value= "/addData", method = RequestMethod.POST)
-  	public ResponseEntity addData (@RequestBody Data data) {
+    @PostMapping("/addData")
+  	public ResponseEntity addData(@RequestBody Data data) {
 
       Data existingData = (dataService.findById(data.getPassengerid())).orElse(null);
 
@@ -62,16 +65,16 @@ public class TestController {
       return new ResponseEntity(HttpStatus.OK);
   	}
 
-    @RequestMapping(value= "/updateData", method = RequestMethod.POST)
-    public ResponseEntity updateData (@RequestBody Data data) {
+    @PutMapping("/updateData")
+    public ResponseEntity updateData(@RequestBody Data data) {
 
       dataService.saveData(data);
 
   		return new ResponseEntity(HttpStatus.OK);
   	}
 
-    @RequestMapping(value= "/deleteData", method = RequestMethod.POST)
-  	public ResponseEntity deleteData (@RequestBody Data data) {
+    @DeleteMapping("/deleteData")
+  	public ResponseEntity deleteData(@RequestBody Data data) {
 
       dataService.deleteData(data);
 
@@ -79,9 +82,9 @@ public class TestController {
   	}
 
     @GetMapping("/search")
-    public ResponseEntity deleteData (@RequestParam String keyword) {
+    public ResponseEntity search(@RequestParam String keyword) {
 
-    System.out.println(keyword);
+      System.out.println(keyword);
 
     List searchResults = null;
     try {

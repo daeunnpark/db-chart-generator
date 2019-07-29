@@ -13,5 +13,6 @@ public interface IDataService {
   Optional<Data> findById(Integer id);
   void saveData(Data data);
   void deleteData(Data data);
+  void deleteAll();
 
 }

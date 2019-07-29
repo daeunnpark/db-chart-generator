@@ -65,14 +65,36 @@ class Table extends Component {
       columns: newColumns,
       data: newData,
     });
-    this.addAllDataToDb();
+    this.addAllDataToDb(newData);
   }
 
-  addAllDataToDb = () => {
+  addAllDataToDb = (data) => {
+    fetch(new Request('/db/addAllData', {
+        method: 'POST',
+        redirect: 'follow',
+        headers: new Headers({
+          'Content-Type': 'application/json'
+        })
+      }), {
+        credentials: 'include',
+        body: JSON.stringify(data)
+      })
+      .then(function(response) {
+        if(!response.ok){
+          return false;
+        }
+          return true;
+      })
+      .catch(function(error) {
+        window.alert('There has been a problem with your fetch operation: ' + error.message);
+      });
+/*
     var temp = this;
+
     this.state.data.forEach(function(data) {
       temp.addDataToDb(data);
-    });
+    });*/
+
   }
 
   addDataToDb = (data) => {
@@ -99,7 +121,7 @@ class Table extends Component {
 
   updateDataInDb = (data) => {
     return fetch(new Request('/db/updateData', {
-        method: 'POST',
+        method: 'PUT',
         redirect: 'follow',
         headers: new Headers({
           'Content-Type': 'application/json'
@@ -121,7 +143,7 @@ class Table extends Component {
 
   deleteDataFromDb = (data) => {
     return fetch(new Request('/db/deleteData', {
-        method: 'POST',
+        method: 'DELETE',
         redirect: 'follow',
         headers: new Headers({
           'Content-Type': 'application/json'
@@ -281,6 +303,7 @@ class Table extends Component {
     }
 }
 
-const style = { padding:'0px' }
+const style = { padding:'0 8px'}
+
 
 export default Table;

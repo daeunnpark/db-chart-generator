@@ -35,4 +35,8 @@ public class DataService implements IDataService {
   public void deleteData(Data data){
           dataRepository.delete(data);
   }
+  @Override
+  public void deleteAll(){
+          dataRepository.deleteAll();
+  }
 }

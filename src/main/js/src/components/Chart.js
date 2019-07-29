@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
-import * as defaultOptions from '../constants/defaultOptions';
+import * as defaultOptions from '../constants/chartOptions';
 // To Constant file?
 require('highcharts/modules/histogram-bellcurve')(Highcharts);
 require('highcharts/modules/no-data-to-display.js')(Highcharts);

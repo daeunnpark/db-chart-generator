@@ -62,8 +62,8 @@ class Alert extends Component {
             }
             action={[
               <IconButton key="close" aria-label="close" color="inherit" onClick={this.handleClose}>
-                <CloseIcon/>
-              </IconButton>,
+              <CloseIcon/>
+              </IconButton>
             ]}
           />
       );
