@@ -1,8 +1,6 @@
 package com.example.dbchartgenerator.Model;
-
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.search.annotations.*;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,9 +10,9 @@ import javax.persistence.Column;
 
 
 @Entity
-@Table(name = "DataTable")
+@Table(name = "Passengers")
 @Indexed
-public class Data {
+public class Passenger {
 
   @Id
   private Integer passengerid;
@@ -33,9 +31,9 @@ public class Data {
   private String embarked;
 
   /**
-   * Default Data constructor
+   * Default Passenger constructor
    */
-  public Data(Integer passengerid, Integer survived, String name,
+  public Passenger(Integer passengerid, Integer survived, String name,
                           String sex, Integer age, Integer sibsp,
                           String parch, String ticket, String fare,
                                     String cabin, String embarked) {
@@ -250,9 +248,9 @@ public class Data {
   }
 
   /**
-   * Default empty Data constructor
+   * Default empty Passenger constructor
    */
-  public Data() {
+  public Passenger() {
           super();
   }
 

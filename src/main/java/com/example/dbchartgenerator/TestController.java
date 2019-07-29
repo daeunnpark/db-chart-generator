@@ -22,12 +22,12 @@ import java.util.List;
 
 import org.springframework.http.converter.HttpMessageNotReadableException;
 
-import com.example.dbchartgenerator.Model.Data;
+import com.example.dbchartgenerator.Model.Passenger;
 
 import java.util.Optional;
 
 import com.example.dbchartgenerator.Model.SearchService;
-import com.example.dbchartgenerator.Model.DataService;
+import com.example.dbchartgenerator.Model.PassengerService;
 
 
 @RestController
@@ -35,29 +35,29 @@ import com.example.dbchartgenerator.Model.DataService;
 public class TestController {
 
   @Autowired
-  DataService dataService;
+  PassengerService passengerService;
 
   @Autowired
   SearchService searchservice;
 
-    @PostMapping("/addAllData")
-  	public ResponseEntity addAllData(@RequestBody Data[] data){
-        dataService.deleteAll();
+    @PostMapping("/addAll")
+  	public ResponseEntity addAllPassengers(@RequestBody Passenger[] passengers){
+        passengerService.deleteAll();
 
-        for (Data d: data) {
-            addData(d);
+        for (Passenger p: passengers) {
+            addPassenger(p);
         }
 
   		return new ResponseEntity(HttpStatus.OK);
   	}
 
-    @PostMapping("/addData")
-  	public ResponseEntity addData(@RequestBody Data data) {
+    @PostMapping("/add")
+  	public ResponseEntity addPassenger(@RequestBody Passenger p) {
 
-      Data existingData = (dataService.findById(data.getPassengerid())).orElse(null);
+      Passenger existingPassenger = (passengerService.findById(p.getPassengerid())).orElse(null);
 
-      if(existingData==null){
-        dataService.saveData(data);
+      if(existingPassenger==null){
+        passengerService.save(p);
       } else {
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
       }
@@ -65,18 +65,18 @@ public class TestController {
       return new ResponseEntity(HttpStatus.OK);
   	}
 
-    @PutMapping("/updateData")
-    public ResponseEntity updateData(@RequestBody Data data) {
+    @PutMapping("/update")
+    public ResponseEntity updatePassenger(@RequestBody Passenger p) {
 
-      dataService.saveData(data);
+      passengerService.save(p);
 
   		return new ResponseEntity(HttpStatus.OK);
   	}
 
-    @DeleteMapping("/deleteData")
-  	public ResponseEntity deleteData(@RequestBody Data data) {
+    @DeleteMapping("/delete")
+  	public ResponseEntity deletePassenger(@RequestBody Passenger p) {
 
-      dataService.deleteData(data);
+      passengerService.delete(p);
 
   		return new ResponseEntity(HttpStatus.OK);
   	}
@@ -100,13 +100,13 @@ public class TestController {
 
 
   	@GetMapping(path="/all")
-  	public @ResponseBody Iterable<Data> getAllUsers() {
-  		return dataService.findAll();
+  	public @ResponseBody Iterable<Passenger> getAllPassengers() {
+  		return passengerService.findAll();
   	}
 
 }
 
       // ResponseEntity<Void>
-//  System.out.println(dataService.findAll().size());
-//System.out.println(dataService.findAll().size());
+//  System.out.println(PassengerService.findAll().size());
+//System.out.println(PassengerService.findAll().size());
 //return new ResponseEntity<Void>(HttpStatus.OK);

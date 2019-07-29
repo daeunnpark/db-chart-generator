@@ -38,12 +38,6 @@ class Alert extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (null !== this.props.success && prevProps !== this.props) {
-      console.log(prevState);
-      console.log(this.state);
-      console.log(prevProps);
-      console.log(this.props);
-      console.log("HEEEEREEE");
-
       const newMessage = this.props.success ? message_SUCCESS : message_ERROR;
       const newFlag = this.props.success ? 0 : 1;
       this.setState({

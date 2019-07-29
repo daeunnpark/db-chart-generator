@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.dbchartgenerator.Model.Data;
+import com.example.dbchartgenerator.Model.Passenger;
 
 
 /*

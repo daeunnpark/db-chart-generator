@@ -72,7 +72,7 @@ class Table extends Component {
       if(success){
         this.setState({
           columns: newColumns,
-          data: newData,
+          data: newData
         });
         this.setAlert(true);
        } else{
@@ -85,7 +85,7 @@ class Table extends Component {
 }
 
   addAllDataToDb = (data) => {
-    return fetch(new Request('/db/addAllData', {
+    return fetch(new Request('/db/addAll', {
         method: 'POST',
         redirect: 'follow',
         headers: new Headers({
@@ -107,7 +107,7 @@ class Table extends Component {
   }
 
   addDataToDb = (data) => {
-    return fetch(new Request('/db/addData', {
+    return fetch(new Request('/db/add', {
         method: 'POST',
         redirect: 'follow',
         headers: new Headers({
@@ -129,7 +129,7 @@ class Table extends Component {
   }
 
   updateDataInDb = (data) => {
-    return fetch(new Request('/db/updateData', {
+    return fetch(new Request('/db/update', {
         method: 'PUT',
         redirect: 'follow',
         headers: new Headers({
@@ -151,7 +151,7 @@ class Table extends Component {
   }
 
   deleteDataFromDb = (data) => {
-    return fetch(new Request('/db/deleteData', {
+    return fetch(new Request('/db/delete', {
         method: 'DELETE',
         redirect: 'follow',
         headers: new Headers({
