@@ -37,7 +37,7 @@ class SearchBar extends Component {
 
   render = () => {
       return (
-        <div style={{ display: 'inline-flex' }}>
+        <div style={{ display: 'inline-flex', marginBottom: 20}}>
           <div>
             <TextField
               id="standard-name"

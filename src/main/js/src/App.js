@@ -7,7 +7,7 @@ import Table from "./components/Table"
 
 class App extends Component {
   constructor(props) {
-    super(props);
+    super();
     this.state = {
       column: [],
       data: [],

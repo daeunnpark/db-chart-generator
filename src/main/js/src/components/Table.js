@@ -7,7 +7,7 @@ import { default as Modal } from './Modal';
 import { default as Alert } from './Alert';
 
 /*
-Represents database table.
+Represents visual representation of actual database.
 */
 class Table extends Component {
   constructor(props) {
@@ -16,11 +16,12 @@ class Table extends Component {
       columns: [],
       data: [],
       isLoading: false,
-      success:false,
+      success:null,
     };
   }
 
   parseCsv = (event) => {
+
     Papa.parse(event.target.files[0], {
       header: true,
       skipEmptyLines: true,
@@ -60,16 +61,31 @@ class Table extends Component {
   }
 
   updateTable = (result) => {
+
     const{ newColumns, newData } = this.parseData_table(result);
+
     this.setState({
-      columns: newColumns,
-      data: newData,
+      isLoading: true
     });
-    this.addAllDataToDb(newData);
-  }
+
+    this.addAllDataToDb(newData).then(success => {
+      if(success){
+        this.setState({
+          columns: newColumns,
+          data: newData,
+        });
+        this.setAlert(true);
+       } else{
+         this.setAlert(false);
+       }
+       this.setState({
+         isLoading: false
+       });
+    });//.catch(failureCallback);
+}
 
   addAllDataToDb = (data) => {
-    fetch(new Request('/db/addAllData', {
+    return fetch(new Request('/db/addAllData', {
         method: 'POST',
         redirect: 'follow',
         headers: new Headers({
@@ -88,13 +104,6 @@ class Table extends Component {
       .catch(function(error) {
         window.alert('There has been a problem with your fetch operation: ' + error.message);
       });
-/*
-    var temp = this;
-
-    this.state.data.forEach(function(data) {
-      temp.addDataToDb(data);
-    });*/
-
   }
 
   addDataToDb = (data) => {
@@ -195,6 +204,9 @@ class Table extends Component {
     this.setState({
       success: bool
     });
+    this.setState({
+      success: null
+    });
   }
 
   render = () => {
@@ -272,7 +284,7 @@ class Table extends Component {
                             this.setAlert(true);
                            } else{
                              reject();
-                             this.setAlert(false);
+                            this.setAlert(false);
                            }
                        });
                    }, 1000)
