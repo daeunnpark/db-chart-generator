@@ -80,12 +80,18 @@ public class DbController {
 
 
     try {
-      System.out.println("here");
-      //searchResults = searchservice.search(keyword);
+
+
+
       result = searchservice.fuzzySearch(keyword);
-      for(Passenger p : result){
-        System.out.println("Id: "+ p.getPassengerid() + " Age: " + p.getAge() + "Name: " + p.getName() );
-		  }
+  System.out.println("DONE333");
+      if(result.size()>0){
+        for(Passenger p : result){
+          System.out.println("Id: "+ p.getPassengerid() + " Age: " + p.getAge() + "Name: " + p.getName() );
+  		  }
+      }else{
+        System.out.println("NO RESULT");
+      }
     }
     catch (Exception ex) {
       // here you should handle unexpected errors

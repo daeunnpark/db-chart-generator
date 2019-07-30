@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.search.annotations.NumericField;
 import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Index;
@@ -29,17 +30,41 @@ public class Passenger {
   @Id
   private Integer passengerid;
 
+  @Field
+  @NumericField
   private Integer survived;
+
+  @Field
+  @NumericField
   private Integer pclass;
-  @Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
+
+  @Field
   private String name;
+
+  @Field
   private String sex;
+
+  @Field
+  @NumericField
   private Integer age;
+
+  @Field
+  @NumericField
   private Integer sibsp;
+
+  @Field
   private String parch;
+
+  @Field
   private String ticket;
+
+  @Field
   private String fare;
+
+  @Field
   private String cabin;
+
+  @Field
   private String embarked;
 
   /**

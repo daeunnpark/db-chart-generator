@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.example.dbchartgenerator.service.SearchService;
 
 /**
- * Configuration class for Hibernate Search
+ * Configuration class for SearchService
  */
 @Configuration
 public class SearchConfiguration {

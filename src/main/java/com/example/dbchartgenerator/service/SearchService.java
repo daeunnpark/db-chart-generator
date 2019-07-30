@@ -48,21 +48,36 @@ public class SearchService {
 
           FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
           QueryBuilder qb = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Passenger.class).get();
-          Query luceneQuery = qb.keyword().fuzzy().withEditDistanceUpTo(1).withPrefixLength(1).onFields("name")
-                              .matching(searchTerm).createQuery();
+
+          String newS ="*"+searchTerm+"*";
+          System.out.println(newS);
+          Query luceneQuery = qb
+                  .keyword()
+                    .wildcard()
+                  .onFields("name", "sex", "ticket")
+                  .matching(newS)
+                  .createQuery();
 
           javax.persistence.Query jpaQuery = fullTextEntityManager.createFullTextQuery(luceneQuery, Passenger.class);
 
           List<Passenger> PassengerList = null;
           try {
                   PassengerList  = jpaQuery.getResultList();
+                  System.out.println("DONE111");
+
 
           } catch (NoResultException nre) {
+                System.out.println("NORESULT");
                   //logger.warn("No result found");
 
           }
-
+          System.out.println("DONE222");
           return PassengerList;
 
   }
 }
+//"survived", "pclass", "name", "sex", "age", "sibsp", "parch", "ticket", "fare" , "cabin", "embarked"
+
+/*Query luceneQuery = qb.keyword().fuzzy().withEditDistanceUpTo(1).withPrefixLength(1).onFields("name")
+                              .matching(searchTerm).createQuery();
+*/

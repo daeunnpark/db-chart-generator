@@ -212,6 +212,12 @@ class Table extends Component {
     });
   }
 
+  setSearchResult = (newData) => {
+    this.setState({
+      data: newData
+    });
+}
+
   render = () => {
       return (
         <div>
@@ -305,7 +311,7 @@ class Table extends Component {
                         Toolbar: props => (
                                     <div>
                                       <MTableToolbar {...props} />
-                                        <SearchBar/>
+                                        <SearchBar setSearchResult = {this.setSearchResult}/>
                                     </div>
                                   )
                 }}

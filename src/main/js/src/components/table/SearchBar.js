@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import AccountCircle from '@material-ui/icons/Close';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 /*
 Represent search bar in the database.
@@ -28,12 +30,24 @@ class SearchBar extends Component {
         if(!response.ok){
           return false;
         }
-        console.log(response.json());
-          return true;
+        //console.log(response.json());
+        return response.json();
+      })
+      .then((data) => {
+          console.log(data);
+          this.props.setSearchResult(data);
+          return data;
       })
       .catch(function(error) {
         window.alert('There has been a problem with your fetch operation: ' + error.message);
       });
+
+  }
+
+  iconClick  = (event) => {
+    this.setState({
+      value : ''
+    });
   }
 
   render = () => {
@@ -44,7 +58,15 @@ class SearchBar extends Component {
               id="standard-name"
               label="keyword"
               onChange = {this.handleChange}
+              value = {this.state.value}
               margin="normal"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <AccountCircle onClick = {this.iconClick}/>
+                  </InputAdornment>
+                ),
+              }}
             />
           </div>
           <div style={{ alignSelf: 'center' }}>
@@ -58,5 +80,19 @@ class SearchBar extends Component {
 
 }
 
+/*
+<TextField
+       className={classes.margin}
+       id="input-with-icon-textfield"
+       label="TextField"
+       InputProps={{
+         startAdornment: (
+           <InputAdornment position="start">
+             <AccountCircle />
+           </InputAdornment>
+         ),
+       }}
+     />
+*/
 
 export default SearchBar;
