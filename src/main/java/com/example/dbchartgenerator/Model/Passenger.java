@@ -1,14 +1,26 @@
-package com.example.dbchartgenerator.Model;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.search.annotations.*;
+package com.example.dbchartgenerator.model;
+
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Column;
+import javax.persistence.Id;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Store;
 
 
+/*
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+*/
+
+/**
+ * Represents a database table of passengers, primary key is passengerid
+ */
 @Entity
 @Table(name = "Passengers")
 @Indexed
@@ -19,7 +31,7 @@ public class Passenger {
 
   private Integer survived;
   private Integer pclass;
-@Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
+  @Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
   private String name;
   private String sex;
   private Integer age;
@@ -53,6 +65,7 @@ public class Passenger {
   }
 
 
+// TODO: remove getter/setter?
   /**
    * Returns value of passengerid
    * @return

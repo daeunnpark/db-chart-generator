@@ -35,6 +35,8 @@ class Table extends Component {
     var parsedColumns = [];
     var parsedData = [];
 
+    console.log(result.meta.fields);
+    console.log(result.data);
     result.meta.fields.forEach(function(field) {
       parsedColumns.push({
         title: field.toUpperCase(),
@@ -48,12 +50,13 @@ class Table extends Component {
       let newData = {};
       for (var key in data) {
         if (data.hasOwnProperty(key)) {
-          newData[key.toLowerCase()] = data[key]
+          newData[key.toLowerCase()] = data[key];
         }
       }
       parsedData.push(newData);
     });
-
+    console.log(parsedColumns);
+    console.log(parsedData);
     return {
         newColumns : parsedColumns,
         newData: parsedData

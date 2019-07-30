@@ -28,6 +28,7 @@ class SearchBar extends Component {
         if(!response.ok){
           return false;
         }
+        console.log(response.json());
           return true;
       })
       .catch(function(error) {

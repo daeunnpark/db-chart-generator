@@ -1,8 +1,11 @@
-package com.example.dbchartgenerator;
+package com.example.dbchartgenerator.controller;
 
-import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,29 +13,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RestController;
 
 
-import java.util.List;
-
-import org.springframework.http.converter.HttpMessageNotReadableException;
-
-import com.example.dbchartgenerator.Model.Passenger;
-
-import java.util.Optional;
-
-import com.example.dbchartgenerator.Model.SearchService;
-import com.example.dbchartgenerator.Model.PassengerService;
+import com.example.dbchartgenerator.model.Passenger;
+import com.example.dbchartgenerator.service.SearchService;
+import com.example.dbchartgenerator.service.PassengerService;
 
 
 @RestController
 @RequestMapping(path="/db")
-public class TestController {
+public class DbController {
 
   @Autowired
   PassengerService passengerService;
@@ -82,20 +73,26 @@ public class TestController {
   	}
 
     @GetMapping("/search")
-    public ResponseEntity search(@RequestParam String keyword) {
+    public @ResponseBody ResponseEntity<Object>  search(@RequestParam String keyword) {
 
       System.out.println(keyword);
+List <Passenger> result = null;
 
-    List searchResults = null;
+
     try {
-      searchResults = searchservice.search(keyword);
+      System.out.println("here");
+      //searchResults = searchservice.search(keyword);
+      result = searchservice.fuzzySearch(keyword);
+      for(Passenger p : result){
+        System.out.println("Id: "+ p.getPassengerid() + " Age: " + p.getAge() + "Name: " + p.getName() );
+		  }
     }
     catch (Exception ex) {
       // here you should handle unexpected errors
       // ...
       // throw ex;
     }
-      return new ResponseEntity(HttpStatus.OK);
+      return new ResponseEntity<Object>(result, HttpStatus.OK);
     }
 
 
