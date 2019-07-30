@@ -75,16 +75,12 @@ public class DbController {
     @GetMapping("/search")
     public @ResponseBody ResponseEntity<Object>  search(@RequestParam String keyword) {
 
-      System.out.println(keyword);
       List <Passenger> result = null;
-
 
     try {
 
+      result = searchservice.search(keyword);
 
-
-      result = searchservice.fuzzySearch(keyword);
-  System.out.println("DONE333");
       if(result.size()>0){
         for(Passenger p : result){
           System.out.println("Id: "+ p.getPassengerid() + " Age: " + p.getAge() + "Name: " + p.getName() );

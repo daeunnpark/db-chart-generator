@@ -5,14 +5,12 @@ import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Id;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.search.annotations.NumericField;
-import org.hibernate.search.annotations.Analyze;
-import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Store;
-
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.search.annotations.FieldBridge;
+import org.hibernate.search.bridge.builtin.IntegerBridge;
 
 /*
 import javax.persistence.GeneratedValue;
@@ -28,14 +26,15 @@ import javax.persistence.GenerationType;
 public class Passenger {
 
   @Id
+  @FieldBridge(impl = IntegerBridge.class)
   private Integer passengerid;
 
   @Field
-  @NumericField
+  @FieldBridge(impl = IntegerBridge.class)
   private Integer survived;
 
   @Field
-  @NumericField
+  @FieldBridge(impl = IntegerBridge.class)
   private Integer pclass;
 
   @Field
@@ -45,11 +44,11 @@ public class Passenger {
   private String sex;
 
   @Field
-  @NumericField
+  @FieldBridge(impl = IntegerBridge.class)
   private Integer age;
 
   @Field
-  @NumericField
+  @FieldBridge(impl = IntegerBridge.class)
   private Integer sibsp;
 
   @Field

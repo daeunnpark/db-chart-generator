@@ -17,6 +17,8 @@ class Table extends Component {
       data: [],
       isLoading: false,
       success:null,
+      defaultData:[],
+      keyword:''
     };
   }
 
@@ -75,7 +77,8 @@ class Table extends Component {
       if(success){
         this.setState({
           columns: newColumns,
-          data: newData
+          data: newData,
+          defaultData: newData,
         });
         this.setAlert(true);
        } else{
@@ -212,11 +215,19 @@ class Table extends Component {
     });
   }
 
-  setSearchResult = (newData) => {
+  setSearchResult = (newKeyword, newData) => {
     this.setState({
-      data: newData
+      data: newData,
+      keyword: newKeyword
     });
 }
+
+  resetSearchResult  = () => {
+    this.setState({
+      data : this.state.defaultData,
+      keyword : ''
+    });
+  }
 
   render = () => {
       return (
@@ -253,9 +264,13 @@ class Table extends Component {
                      setTimeout(() => {
                             this.addDataToDb(newData).then(success => {
                                if(success){
-                                 const data = this.state.data;
-                                 data.push(newData);
-                                 this.setState({ data }, () => resolve());
+                                 const data2 = this.state.data;
+                                 const defaultData2 = this.state.defaultData;
+                                 data2.push(newData);
+                                 defaultData2.push(newData);
+
+                                 this.setState({ data: data2, defaultData:defaultData2 }, () => resolve());
+    console.log(this.state.defaultData);
                                  this.setAlert(true);
                                 } else{
                                   reject();
@@ -269,11 +284,18 @@ class Table extends Component {
                    setTimeout(() => {
                        this.updateDataInDb(newData).then(success => {
                           if(success){
-                            const data = this.state.data;
-                            const index = data.indexOf(oldData);
-                            data[index] = newData;
-                            this.setState({ data }, () => resolve());
-                            this.setAlert(true);
+                            const data2 = this.state.data;
+                            const defaultData2 = this.state.defaultData;
+                            const index = data2.indexOf(oldData);
+                            const index2 = defaultData2.indexOf(oldData);
+                          console.log(data2);
+                          console.log(defaultData2);
+                        console.log("index1 =" + index +  "index2 = " + index2);
+                            data2[index] = newData;
+                            defaultData2[index2]=newData;
+                            this.setState({ data: data2, defaultData:defaultData2 }, () => resolve());
+
+this.setAlert(true);
                            } else{
                              reject();
                              this.setAlert(false);
@@ -286,11 +308,15 @@ class Table extends Component {
                    setTimeout(() => {
                        this.deleteDataFromDb(oldData).then(success => {
                           if(success){
-                            let data = this.state.data;
-                            const index = data.indexOf(oldData);
-                            data.splice(index, 1);
-                            this.setState({ data }, () => resolve());
-                            this.setAlert(true);
+                            let data2 = this.state.data;
+                            let defaultData2 = this.state.defaultData;
+                            const index = data2.indexOf(oldData);
+                            const index2 = defaultData2.indexOf(oldData);
+                            data2.splice(index, 1);
+                            defaultData2.splice(index2,1);
+                            this.setState({ data: data2, defaultData:defaultData2}, () => resolve());
+  console.log(this.state.defaultData);
+  this.setAlert(true);
                            } else{
                              reject();
                             this.setAlert(false);
@@ -311,7 +337,7 @@ class Table extends Component {
                         Toolbar: props => (
                                     <div>
                                       <MTableToolbar {...props} />
-                                        <SearchBar setSearchResult = {this.setSearchResult}/>
+                                        <SearchBar keyword = {this.state.keyword} setSearchResult = {this.setSearchResult} resetSearchResult = {this.resetSearchResult} />
                                     </div>
                                   )
                 }}

@@ -44,26 +44,24 @@ public class SearchService {
   }
 
   @Transactional
-  public List<Passenger> fuzzySearch(String searchTerm){
+  public List<Passenger> search(String keyword){
 
           FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
           QueryBuilder qb = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Passenger.class).get();
 
-          String newS ="*"+searchTerm+"*";
-          System.out.println(newS);
           Query luceneQuery = qb
                   .keyword()
                     .wildcard()
-                  .onFields("name", "sex", "ticket")
-                  .matching(newS)
+                  .onFields("passengerid","survived", "pclass", "name", "sex", "age", "sibsp", "parch", "ticket", "fare" , "cabin", "embarked")
+                  .matching("*"+keyword.toLowerCase()+"*")
                   .createQuery();
 
           javax.persistence.Query jpaQuery = fullTextEntityManager.createFullTextQuery(luceneQuery, Passenger.class);
 
           List<Passenger> PassengerList = null;
+
           try {
                   PassengerList  = jpaQuery.getResultList();
-                  System.out.println("DONE111");
 
 
           } catch (NoResultException nre) {
@@ -71,7 +69,6 @@ public class SearchService {
                   //logger.warn("No result found");
 
           }
-          System.out.println("DONE222");
           return PassengerList;
 
   }
@@ -79,5 +76,5 @@ public class SearchService {
 //"survived", "pclass", "name", "sex", "age", "sibsp", "parch", "ticket", "fare" , "cabin", "embarked"
 
 /*Query luceneQuery = qb.keyword().fuzzy().withEditDistanceUpTo(1).withPrefixLength(1).onFields("name")
-                              .matching(searchTerm).createQuery();
+                              .matching(keyword).createQuery();
 */

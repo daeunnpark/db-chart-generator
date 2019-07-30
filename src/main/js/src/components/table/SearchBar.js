@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import AccountCircle from '@material-ui/icons/Close';
+import Reset from '@material-ui/icons/Close';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
 /*
@@ -15,6 +15,12 @@ class SearchBar extends Component {
     };
   }
 
+  componentDidMount() {
+      this.setState({
+        value: this.props.keyword
+      });
+  }
+
   handleChange = (event) => {
     this.setState({
       value: event.target.value
@@ -22,6 +28,7 @@ class SearchBar extends Component {
   }
 
   search = (event) => {
+      console.log(this.state.value);
       fetch(`/db/search/?keyword=${this.state.value}`, {
         credentials: 'include',
         method: 'GET'
@@ -35,7 +42,7 @@ class SearchBar extends Component {
       })
       .then((data) => {
           console.log(data);
-          this.props.setSearchResult(data);
+          this.props.setSearchResult(this.state.value, data);
           return data;
       })
       .catch(function(error) {
@@ -48,12 +55,13 @@ class SearchBar extends Component {
     this.setState({
       value : ''
     });
+    this.props.resetSearchResult();
   }
 
   render = () => {
       return (
-        <div style={{ display: 'inline-flex', marginBottom: 20}}>
-          <div>
+        <div style={{  display: 'inline-flex', marginBottom: 20}}>
+          <div style={{ marginBottom:15, marginRight:20}}>
             <TextField
               id="standard-name"
               label="keyword"
@@ -61,16 +69,16 @@ class SearchBar extends Component {
               value = {this.state.value}
               margin="normal"
               InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <AccountCircle onClick = {this.iconClick}/>
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <Reset onClick = {this.iconClick}/>
                   </InputAdornment>
                 ),
               }}
             />
           </div>
-          <div style={{ alignSelf: 'center' }}>
-            <Button variant="outlined" onClick = {this.search}>
+          <div style={{ alignSelf: 'center'}}>
+            <Button variant="outlined" color="inherit" onClick = {this.search}>
               Search
             </Button>
           </div>

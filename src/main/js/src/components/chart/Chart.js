@@ -23,7 +23,9 @@ class Chart extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    console.log("ttttt");
     if (prevProps !== this.props) {
+      console.log("rrrrr");
       const {
         newColumn,
         newCategories,
