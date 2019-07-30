@@ -23,4 +23,5 @@ public class SearchConfiguration {
 		searchService.initializeSearch();
 		return searchService;
 	}
+
 }

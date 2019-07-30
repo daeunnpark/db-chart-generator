@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import 'whatwg-fetch';
 import './App.css';
-import Chart from "./components/Chart"
-import Table from "./components/Table"
+import Chart from "./components/chart/Chart"
+import Table from "./components/table/Table"
 
 
 class App extends Component {

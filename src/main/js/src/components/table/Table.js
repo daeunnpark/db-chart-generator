@@ -3,8 +3,8 @@ import MaterialTable, { MTableToolbar } from 'material-table';
 import Button from '@material-ui/core/Button';
 import SearchBar from './SearchBar';
 import Papa from 'papaparse';
-import { default as Modal } from './Modal';
-import { default as Alert } from './Alert';
+import { default as Modal } from '../feedback/Modal';
+import { default as Alert } from '../feedback/Alert';
 
 /*
 Represents visual representation of actual database.

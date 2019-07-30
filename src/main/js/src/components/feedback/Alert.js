@@ -4,8 +4,8 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
-import * as messages from '../constants/messages';
-import * as styles from '../constants/styles';
+import * as messages from '../../constant/messages';
+import * as styles from '../../constant/styles';
 
 /*
 import ErrorIcon from '@material-ui/icons/Error';
