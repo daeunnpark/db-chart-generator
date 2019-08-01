@@ -11,14 +11,17 @@ class SearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value : ''
+      value : '',
+      disabled: false
     };
   }
 
   componentDidMount() {
+
       this.setState({
         value: this.props.keyword
       });
+
   }
 
   handleChange = (event) => {
@@ -60,14 +63,13 @@ class SearchBar extends Component {
 
   render = () => {
       return (
-        <div style={{  display: 'inline-flex', marginBottom: 20}}>
-          <div style={{ marginBottom:15, marginRight:20}}>
+        <div style={{  display: 'inline-flex', margin:15}}>
+          <div style={{marginRight:20, marginBottom:10}}>
             <TextField
               id="standard-name"
               label="keyword"
               onChange = {this.handleChange}
               value = {this.state.value}
-              margin="normal"
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -78,7 +80,7 @@ class SearchBar extends Component {
             />
           </div>
           <div style={{ alignSelf: 'center'}}>
-            <Button variant="outlined" color="inherit" onClick = {this.search}>
+            <Button variant="outlined" color="inherit" onClick = {this.search} disabled = {this.props.disabled}>
               Search
             </Button>
           </div>
@@ -87,20 +89,5 @@ class SearchBar extends Component {
   }
 
 }
-
-/*
-<TextField
-       className={classes.margin}
-       id="input-with-icon-textfield"
-       label="TextField"
-       InputProps={{
-         startAdornment: (
-           <InputAdornment position="start">
-             <AccountCircle />
-           </InputAdornment>
-         ),
-       }}
-     />
-*/
 
 export default SearchBar;

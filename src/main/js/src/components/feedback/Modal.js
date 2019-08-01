@@ -59,7 +59,7 @@ class Modal extends Component{
   render = () => {
       return (
           <div>
-            <Button id ='updateChartsBtn' variant="contained" color="secondary" onClick={this.handleOpen} className = 'Btn' > Update Charts</Button>
+            <Button id ='updateChartsBtn' variant="contained" color="secondary" onClick={this.handleOpen} className = 'Btn' disabled = {this.props.disabled}> Update Charts</Button>
             <Dialog disableBackdropClick disableEscapeKeyDown open={this.state.open} onClose={this.handleClose}>
               <DialogTitle>Choose a category to generate charts.</DialogTitle>
               <DialogContent>

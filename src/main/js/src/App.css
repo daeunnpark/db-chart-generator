@@ -22,3 +22,12 @@ input{
 #updateChartsBtn{
   margin:50px;
 }
+
+.my-temp-class {
+/*
+      width:50px;
+    position: 'absolute';
+ left: 0;
+      background-color: red;
+*/
+     }

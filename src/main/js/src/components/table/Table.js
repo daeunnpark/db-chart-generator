@@ -5,6 +5,7 @@ import SearchBar from './SearchBar';
 import Papa from 'papaparse';
 import { default as Modal } from '../feedback/Modal';
 import { default as Alert } from '../feedback/Alert';
+import "../../App.css"
 
 /*
 Represents visual representation of actual database.
@@ -16,9 +17,10 @@ class Table extends Component {
       columns: [],
       data: [],
       isLoading: false,
+      isLoaded: false,
       success:null,
-      defaultData:[],
-      keyword:''
+      dataCopy:[],
+      keyword:'',
     };
   }
 
@@ -46,7 +48,7 @@ class Table extends Component {
         cellStyle: style,
       });
     });
-    (parsedColumns[0])['editable']='onAdd';
+    (parsedColumns[0])['editable']='onAdd'; //readonly
 
     result.data.forEach(function(data) {
       let newData = {};
@@ -78,15 +80,24 @@ class Table extends Component {
         this.setState({
           columns: newColumns,
           data: newData,
-          defaultData: newData,
+          dataCopy: newData
         });
+        console.log(newData)
+        console.log(this.state.data);
+        console.log("copy is");
+        console.log(this.state.dataCopy);
         this.setAlert(true);
+        this.setState({
+          //isLoading: false,
+          isLoaded: true
+        });
        } else{
          this.setAlert(false);
        }
        this.setState({
-         isLoading: false
+        isLoading: false,
        });
+
     });//.catch(failureCallback);
 }
 
@@ -216,15 +227,33 @@ class Table extends Component {
   }
 
   setSearchResult = (newKeyword, newData) => {
+
     this.setState({
+      keyword: newKeyword,
       data: newData,
-      keyword: newKeyword
     });
+
+
+    console.log(this.state.page);
+
+/*
+console.log("called");
+console.log();
+console.log(newData);
+this.setState(
+{data: newData,
+keyword: newKeyword
+},
+  () => {
+       console.log("SERACH RESULTS");
+        console.log(this.state.data);
+      })
+*/
 }
 
   resetSearchResult  = () => {
     this.setState({
-      data : this.state.defaultData,
+      data : this.state.dataCopy,
       keyword : ''
     });
   }
@@ -253,7 +282,8 @@ class Table extends Component {
                   search : false,
                   toolbarButtonAlignment: 'left',
                   headerStyle: style,
-                  addRowPosition:'first'
+                  addRowPosition:'first',
+                  emptyRowsWhenPaging: false
               }}
               isLoading = {this.state.isLoading}
               columns = {this.state.columns}
@@ -264,14 +294,20 @@ class Table extends Component {
                      setTimeout(() => {
                             this.addDataToDb(newData).then(success => {
                                if(success){
-                                 const data2 = this.state.data;
-                                 const defaultData2 = this.state.defaultData;
-                                 data2.push(newData);
-                                 defaultData2.push(newData);
+                                  console.log(newData);
+                                  const ndata = this.state.data;
+                                  //ndata.push(newData);
+                                  console.log(ndata);
+                                  const ndataCopy = this.state.dataCopy;
+                                  //ndataCopy.push(newData);
+                                  console.log(ndataCopy);
+                                  console.log(ndata);
+                                  console.log(ndataCopy);
 
-                                 this.setState({ data: data2, defaultData:defaultData2 }, () => resolve());
-    console.log(this.state.defaultData);
-                                 this.setAlert(true);
+                                  this.setState({ data:ndata, dataCopy: ndataCopy}, () => resolve());
+
+                                  this.setAlert(true);
+
                                 } else{
                                   reject();
                                   this.setAlert(false);
@@ -284,18 +320,24 @@ class Table extends Component {
                    setTimeout(() => {
                        this.updateDataInDb(newData).then(success => {
                           if(success){
-                            const data2 = this.state.data;
-                            const defaultData2 = this.state.defaultData;
-                            const index = data2.indexOf(oldData);
-                            const index2 = defaultData2.indexOf(oldData);
-                          console.log(data2);
-                          console.log(defaultData2);
-                        console.log("index1 =" + index +  "index2 = " + index2);
-                            data2[index] = newData;
-                            defaultData2[index2]=newData;
-                            this.setState({ data: data2, defaultData:defaultData2 }, () => resolve());
+                            console.log(oldData);
+                            const ndata = this.state.data;
+                            const index = ndata.indexOf(oldData);
+                            ndata[index] = newData;
 
-this.setAlert(true);
+                            const ndataCopy = this.state.dataCopy;
+
+
+                            var index_copy = ndataCopy.findIndex(a=> a.passengerid == oldData["passengerid"]);
+                            console.log(index_copy);
+                            ndataCopy[index_copy] = newData;
+                            console.log("index =" + index_copy);
+
+                            console.log(ndata);
+                            console.log(ndataCopy);
+
+                            this.setState({ data:ndata, dataCopy: ndataCopy}, () => resolve());
+                            this.setAlert(true);
                            } else{
                              reject();
                              this.setAlert(false);
@@ -307,16 +349,26 @@ this.setAlert(true);
                  new Promise((resolve, reject) => {
                    setTimeout(() => {
                        this.deleteDataFromDb(oldData).then(success => {
-                          if(success){
-                            let data2 = this.state.data;
-                            let defaultData2 = this.state.defaultData;
-                            const index = data2.indexOf(oldData);
-                            const index2 = defaultData2.indexOf(oldData);
-                            data2.splice(index, 1);
-                            defaultData2.splice(index2,1);
-                            this.setState({ data: data2, defaultData:defaultData2}, () => resolve());
-  console.log(this.state.defaultData);
-  this.setAlert(true);
+                            if(success){
+                            console.log(oldData);
+                            console.log(oldData["passengerid"]);
+                            let ndata = this.state.data;
+                            const index = ndata.indexOf(oldData);
+                            console.log(index);
+                            ndata.splice(index, 1);
+
+                            let ndataCopy = this.state.dataCopy;
+                            var index_copy = ndataCopy.findIndex(a=> a.passengerid == oldData["passengerid"]);
+
+                            //ndataCopy.splice(index_copy,1);
+
+                            console.log("index =" + index_copy);
+
+                            console.log(ndata);
+                            console.log(ndataCopy);
+
+                            this.setState({ data:ndata, dataCopy: ndataCopy}, () => resolve());
+                            this.setAlert(true);
                            } else{
                              reject();
                             this.setAlert(false);
@@ -335,14 +387,19 @@ this.setAlert(true);
                 }}
                 components={{
                         Toolbar: props => (
-                                    <div>
-                                      <MTableToolbar {...props} />
-                                        <SearchBar keyword = {this.state.keyword} setSearchResult = {this.setSearchResult} resetSearchResult = {this.resetSearchResult} />
+                                    <div style={{ display: 'flex', padding:'10px 0'}}>
+                                        <div>
+                                          <MTableToolbar {...props}  classes={{ root: "my-temp-class" }} />
+                                        </div>
+                                        <div style = {{  borderRadius: '5px', margin: 'auto'}}>
+                                          <SearchBar keyword = {this.state.keyword} setSearchResult = {this.setSearchResult.bind(this)} resetSearchResult = {this.resetSearchResult.bind(this)} disabled = {!this.state.isLoaded} />
+                                        </div>
                                     </div>
-                                  )
+                                  ),
+
                 }}
              />
-            <Modal columns = {this.state.columns} setSelectedCategoryData = {this.setSelectedCategoryData}/>
+            <Modal columns = {this.state.columns} setSelectedCategoryData = {this.setSelectedCategoryData} disabled = {!this.state.isLoaded}/>
           </div>
           <Alert success= {this.state.success}/>
         </div>
