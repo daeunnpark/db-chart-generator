@@ -80,7 +80,7 @@ class Table extends Component {
         this.setState({
           columns: newColumns,
           data: newData,
-          dataCopy: newData
+          dataCopy: [...newData]
         });
         console.log(newData)
         console.log(this.state.data);
@@ -253,7 +253,7 @@ keyword: newKeyword
 
   resetSearchResult  = () => {
     this.setState({
-      data : this.state.dataCopy,
+      data : [...this.state.dataCopy],
       keyword : ''
     });
   }
@@ -294,18 +294,13 @@ keyword: newKeyword
                      setTimeout(() => {
                             this.addDataToDb(newData).then(success => {
                                if(success){
-                                  console.log(newData);
                                   const ndata = this.state.data;
-                                  //ndata.push(newData);
-                                  console.log(ndata);
+                                  ndata.push(newData);
+
                                   const ndataCopy = this.state.dataCopy;
-                                  //ndataCopy.push(newData);
-                                  console.log(ndataCopy);
-                                  console.log(ndata);
-                                  console.log(ndataCopy);
+                                  ndataCopy.push(newData);
 
                                   this.setState({ data:ndata, dataCopy: ndataCopy}, () => resolve());
-
                                   this.setAlert(true);
 
                                 } else{
@@ -320,21 +315,13 @@ keyword: newKeyword
                    setTimeout(() => {
                        this.updateDataInDb(newData).then(success => {
                           if(success){
-                            console.log(oldData);
                             const ndata = this.state.data;
                             const index = ndata.indexOf(oldData);
                             ndata[index] = newData;
 
                             const ndataCopy = this.state.dataCopy;
-
-
                             var index_copy = ndataCopy.findIndex(a=> a.passengerid == oldData["passengerid"]);
-                            console.log(index_copy);
                             ndataCopy[index_copy] = newData;
-                            console.log("index =" + index_copy);
-
-                            console.log(ndata);
-                            console.log(ndataCopy);
 
                             this.setState({ data:ndata, dataCopy: ndataCopy}, () => resolve());
                             this.setAlert(true);
@@ -350,22 +337,13 @@ keyword: newKeyword
                    setTimeout(() => {
                        this.deleteDataFromDb(oldData).then(success => {
                             if(success){
-                            console.log(oldData);
-                            console.log(oldData["passengerid"]);
                             let ndata = this.state.data;
                             const index = ndata.indexOf(oldData);
-                            console.log(index);
                             ndata.splice(index, 1);
 
                             let ndataCopy = this.state.dataCopy;
                             var index_copy = ndataCopy.findIndex(a=> a.passengerid == oldData["passengerid"]);
-
-                            //ndataCopy.splice(index_copy,1);
-
-                            console.log("index =" + index_copy);
-
-                            console.log(ndata);
-                            console.log(ndataCopy);
+                            ndataCopy.splice(index_copy,1);
 
                             this.setState({ data:ndata, dataCopy: ndataCopy}, () => resolve());
                             this.setAlert(true);
