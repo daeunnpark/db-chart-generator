@@ -35,6 +35,7 @@ public class SearchService {
   public void initializeSearch() {
 
           try {
+                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!init callleddddd");
                   FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
                   fullTextEntityManager.createIndexer().startAndWait();
           } catch (InterruptedException e) {
@@ -45,6 +46,8 @@ public class SearchService {
 
   @Transactional
   public List<Passenger> search(String keyword){
+        
+          initializeSearch();
 
           FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
           QueryBuilder qb = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Passenger.class).get();
