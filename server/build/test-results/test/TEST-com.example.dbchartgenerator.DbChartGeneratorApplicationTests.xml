@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.dbchartgenerator.DbChartGeneratorApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-08-04T19:10:27" hostname="MacBook-Air-de-PARK.local" time="0.089">
+  <properties/>
+  <testcase name="contextLoads" classname="com.example.dbchartgenerator.DbChartGeneratorApplicationTests" time="0.089"/>
+  <system-out><![CDATA[15:10:14.753 [Test worker] DEBUG org.springframework.test.context.junit4.SpringJUnit4ClassRunner - SpringJUnit4ClassRunner constructor called with [class com.example.dbchartgenerator.DbChartGeneratorApplicationTests]
+15:10:14.772 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+15:10:14.790 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+15:10:14.831 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [com.example.dbchartgenerator.DbChartGeneratorApplicationTests] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
+15:10:14.925 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.example.dbchartgenerator.DbChartGeneratorApplicationTests], using SpringBootContextLoader
+15:10:14.936 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.example.dbchartgenerator.DbChartGeneratorApplicationTests]: class path resource [com/example/dbchartgenerator/DbChartGeneratorApplicationTests-context.xml] does not exist
+15:10:14.937 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.example.dbchartgenerator.DbChartGeneratorApplicationTests]: class path resource [com/example/dbchartgenerator/DbChartGeneratorApplicationTestsContext.groovy] does not exist
+15:10:14.937 [Test worker] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.example.dbchartgenerator.DbChartGeneratorApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+15:10:14.939 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.example.dbchartgenerator.DbChartGeneratorApplicationTests]: DbChartGeneratorApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+15:10:15.054 [Test worker] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [com.example.dbchartgenerator.DbChartGeneratorApplicationTests]
+15:10:15.217 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [/Users/Daeun/Desktop/db-chart-generator/server/build/classes/java/main/com/example/dbchartgenerator/DbChartGeneratorApplication.class]
+15:10:15.219 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.example.dbchartgenerator.DbChartGeneratorApplication for test class com.example.dbchartgenerator.DbChartGeneratorApplicationTests
+15:10:15.387 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [com.example.dbchartgenerator.DbChartGeneratorApplicationTests]: using defaults.
+15:10:15.393 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+15:10:15.428 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@12b7751f, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@38a221c3, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@69d60748, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@5c3bf68c, org.springframework.test.context.support.DirtiesContextTestExecutionListener@750d6f99, org.springframework.test.context.transaction.TransactionalTestExecutionListener@5c88f4c2, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@53d545c, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@6314de1, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@185e8b19, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@36b5234, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@6c1b69b1, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@60497f96]
+15:10:15.434 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.example.dbchartgenerator.DbChartGeneratorApplicationTests]
+15:10:15.436 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.example.dbchartgenerator.DbChartGeneratorApplicationTests]
+15:10:15.437 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.example.dbchartgenerator.DbChartGeneratorApplicationTests]
+15:10:15.438 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.example.dbchartgenerator.DbChartGeneratorApplicationTests]
+15:10:15.446 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@469f4b1d testClass = DbChartGeneratorApplicationTests, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@4ffed300 testClass = DbChartGeneratorApplicationTests, locations = '{}', classes = '{class com.example.dbchartgenerator.DbChartGeneratorApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@1566ec88, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@452e1738, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@18c9ff44, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@4fae302], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> true]], class annotated with @DirtiesContext [false] with mode [null].
+15:10:15.448 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.example.dbchartgenerator.DbChartGeneratorApplicationTests]
+15:10:15.448 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.example.dbchartgenerator.DbChartGeneratorApplicationTests]
+15:10:15.475 [Test worker] DEBUG org.springframework.test.context.support.TestPropertySourceUtils - Adding inlined properties to environment: {spring.jmx.enabled=false, org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=-1}
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.1.6.RELEASE)
+
+2019-08-04 15:10:16.419  INFO 1650 --- [    Test worker] c.e.d.DbChartGeneratorApplicationTests   : Starting DbChartGeneratorApplicationTests on MacBook-Air-de-PARK.local with PID 1650 (started by Daeun in /Users/Daeun/Desktop/db-chart-generator/server)
+2019-08-04 15:10:16.422  INFO 1650 --- [    Test worker] c.e.d.DbChartGeneratorApplicationTests   : No active profile set, falling back to default profiles: default
+2019-08-04 15:10:18.131  INFO 1650 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-08-04 15:10:18.271  INFO 1650 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 124ms. Found 1 repository interfaces.
+2019-08-04 15:10:19.267  INFO 1650 --- [    Test worker] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$14671606] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-08-04 15:10:19.694  INFO 1650 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-08-04 15:10:21.167  INFO 1650 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-08-04 15:10:21.297  INFO 1650 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-08-04 15:10:21.446  INFO 1650 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.10.Final}
+2019-08-04 15:10:21.448  INFO 1650 --- [    Test worker] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2019-08-04 15:10:21.729  INFO 1650 --- [    Test worker] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.5.Final}
+2019-08-04 15:10:21.970  INFO 1650 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2019-08-04 15:10:22.538  INFO 1650 --- [    Test worker] org.hibernate.search.engine.Version      : HSEARCH000034: Hibernate Search 5.10.6.Final
+2019-08-04 15:10:23.136 DEBUG 1650 --- [    Test worker] org.hibernate.SQL                        : 
+    
+    drop table if exists passengers
+2019-08-04 15:10:23.399 DEBUG 1650 --- [    Test worker] org.hibernate.SQL                        : 
+    
+    create table passengers (
+       passengerid integer not null,
+        age integer,
+        cabin varchar(255),
+        embarked varchar(255),
+        fare varchar(255),
+        name varchar(255),
+        parch varchar(255),
+        pclass integer,
+        sex varchar(255),
+        sibsp integer,
+        survived integer,
+        ticket varchar(255),
+        primary key (passengerid)
+    ) engine=MyISAM
+2019-08-04 15:10:23.488  INFO 1650 --- [    Test worker] o.h.t.schema.internal.SchemaCreatorImpl  : HHH000476: Executing import script 'org.hibernate.tool.schema.internal.exec.ScriptSourceInputNonExistentImpl@426d0aac'
+2019-08-04 15:10:23.897  INFO 1650 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-08-04 15:10:25.016 DEBUG 1650 --- [ntifierloader-1] org.hibernate.SQL                        : 
+    select
+        count(*) as y0_ 
+    from
+        passengers this_
+2019-08-04 15:10:25.087  INFO 1650 --- [ntifierloader-1] o.h.s.b.i.SimpleIndexingProgressMonitor  : HSEARCH000027: Going to reindex 0 entities
+2019-08-04 15:10:25.089 DEBUG 1650 --- [ntifierloader-1] org.hibernate.SQL                        : 
+    select
+        this_.passengerid as y0_ 
+    from
+        passengers this_
+2019-08-04 15:10:25.210  INFO 1650 --- [    Test worker] o.h.s.b.i.SimpleIndexingProgressMonitor  : HSEARCH000028: Reindexed 0 entities
+2019-08-04 15:10:25.243 DEBUG 1650 --- [ntifierloader-1] org.hibernate.SQL                        : 
+    select
+        count(*) as y0_ 
+    from
+        passengers this_
+2019-08-04 15:10:25.267  INFO 1650 --- [ntifierloader-1] o.h.s.b.i.SimpleIndexingProgressMonitor  : HSEARCH000027: Going to reindex 0 entities
+2019-08-04 15:10:25.267 DEBUG 1650 --- [ntifierloader-1] org.hibernate.SQL                        : 
+    select
+        this_.passengerid as y0_ 
+    from
+        passengers this_
+2019-08-04 15:10:25.328  INFO 1650 --- [    Test worker] o.h.s.b.i.SimpleIndexingProgressMonitor  : HSEARCH000028: Reindexed 0 entities
+2019-08-04 15:10:26.454  INFO 1650 --- [    Test worker] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-08-04 15:10:26.780  INFO 1650 --- [    Test worker] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2019-08-04 15:10:27.240  INFO 1650 --- [    Test worker] c.e.d.DbChartGeneratorApplicationTests   : Started DbChartGeneratorApplicationTests in 11.747 seconds (JVM running for 13.637)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
