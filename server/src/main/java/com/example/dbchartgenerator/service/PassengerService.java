@@ -11,23 +11,13 @@ import com.example.dbchartgenerator.repository.PassengerRepository;
 
 
 /**
- * Service class overriding CRUD functionalities
+ * Service class overriding default CRUD functionality
  */
 @Service
 public class PassengerService implements IPassengerService {
 
   @Autowired
   private PassengerRepository passengerRepository;
-
-  @Override
-  public List<Passenger> findAll() {
-    return (List<Passenger>) passengerRepository.findAll();
-  }
-
-  @Override
-  public Optional<Passenger> findById(Integer id){
-    return passengerRepository.findById(id);
-  }
 
   @Override
   public void save(Passenger p){
@@ -42,5 +32,9 @@ public class PassengerService implements IPassengerService {
   @Override
   public void deleteAll(){
     passengerRepository.deleteAll();
+  }
+  @Override
+  public Optional<Passenger> findById(Integer id){
+    return passengerRepository.findById(id);
   }
 }

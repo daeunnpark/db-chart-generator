@@ -31,7 +31,6 @@ class SearchBar extends Component {
   }
 
   search = (event) => {
-      console.log(this.state.value);
       fetch(`/db/search/?keyword=${this.state.value}`, {
         credentials: 'include',
         method: 'GET'
@@ -40,11 +39,9 @@ class SearchBar extends Component {
         if(!response.ok){
           return false;
         }
-        //console.log(response.json());
         return response.json();
       })
       .then((data) => {
-          console.log(data);
           this.props.setSearchResult(this.state.value, data);
           return data;
       })

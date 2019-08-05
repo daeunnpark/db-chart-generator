@@ -5,7 +5,7 @@ import SearchBar from './SearchBar';
 import Papa from 'papaparse';
 import { default as Modal } from '../feedback/Modal';
 import { default as Alert } from '../feedback/Alert';
-import "../../App.css"
+import "../app/App.css"
 
 /*
 Represents visual representation of actual database.
@@ -39,8 +39,6 @@ class Table extends Component {
     var parsedColumns = [];
     var parsedData = [];
 
-    console.log(result.meta.fields);
-    console.log(result.data);
     result.meta.fields.forEach(function(field) {
       parsedColumns.push({
         title: field.toUpperCase(),
@@ -59,8 +57,6 @@ class Table extends Component {
       }
       parsedData.push(newData);
     });
-    console.log(parsedColumns);
-    console.log(parsedData);
     return {
         newColumns : parsedColumns,
         newData: parsedData
@@ -82,10 +78,6 @@ class Table extends Component {
           data: newData,
           dataCopy: [...newData]
         });
-        console.log(newData)
-        console.log(this.state.data);
-        console.log("copy is");
-        console.log(this.state.dataCopy);
         this.setAlert(true);
         this.setState({
           //isLoading: false,
@@ -227,29 +219,11 @@ class Table extends Component {
   }
 
   setSearchResult = (newKeyword, newData) => {
-
     this.setState({
       keyword: newKeyword,
       data: newData,
     });
-
-
-    console.log(this.state.page);
-
-/*
-console.log("called");
-console.log();
-console.log(newData);
-this.setState(
-{data: newData,
-keyword: newKeyword
-},
-  () => {
-       console.log("SERACH RESULTS");
-        console.log(this.state.data);
-      })
-*/
-}
+  }
 
   resetSearchResult  = () => {
     this.setState({

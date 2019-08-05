@@ -11,6 +11,7 @@ import com.example.dbchartgenerator.service.SearchService;
 /**
  * Configuration class for SearchService
  */
+
 @Configuration
 public class SearchConfiguration {
 

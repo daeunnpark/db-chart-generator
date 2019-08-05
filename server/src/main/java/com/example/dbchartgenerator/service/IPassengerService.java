@@ -7,11 +7,11 @@ import com.example.dbchartgenerator.model.Passenger;
 
 
 /**
- * Interface implementing CRUD functionalities
+ * Interface implementing CRUD functionality
  */
 public interface IPassengerService {
 
-  List<Passenger> findAll();
+  //List<Passenger> findAll();
   Optional<Passenger> findById(Integer id);
   void save(Passenger p);
   void delete(Passenger p);

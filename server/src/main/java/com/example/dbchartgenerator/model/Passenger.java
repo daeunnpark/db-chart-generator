@@ -1,24 +1,22 @@
 package com.example.dbchartgenerator.model;
 
+import javax.persistence.Id;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Column;
-import javax.persistence.Id;
+
 
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.bridge.builtin.IntegerBridge;
+//import org.hibernate.annotations.GenericGenerator;
 
-/*
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-*/
 
 /**
- * Represents a database table of passengers, primary key is passengerid
+ * Represents database table of passengers, primary key is passengerid
+ * Integer fields are treated as String
  */
 @Entity
 @Table(name = "Passengers")
