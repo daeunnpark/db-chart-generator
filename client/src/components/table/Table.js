@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import MaterialTable, { MTableToolbar } from 'material-table';
+import MaterialTable, { MTableToolbar, MTablePagination } from 'material-table';
+
 import Button from '@material-ui/core/Button';
 import SearchBar from './SearchBar';
 import Papa from 'papaparse';
@@ -22,6 +23,7 @@ class Table extends Component {
       dataCopy:[],
       keyword:'',
     };
+    this._pagination = React.createRef();
   }
 
   parseCsv = (event) => {
@@ -223,6 +225,7 @@ class Table extends Component {
       keyword: newKeyword,
       data: newData,
     });
+    this._pagination.current.handleFirstPageButtonClick();
   }
 
   resetSearchResult  = () => {
@@ -251,6 +254,21 @@ class Table extends Component {
 
             <h2>Database Table</h2>
             <MaterialTable
+              components={{
+                Pagination: props =>(<MTablePagination {...props} ref = {this._pagination}/>),
+                Toolbar: props => (
+                    <div style={{ display: 'flex', padding:'10px 0'}}>
+                        <div>
+                          <MTableToolbar {...props}  classes={{ root: "my-temp-class" }} />
+                        </div>
+                        <div id = "searchBar">
+                          <SearchBar keyword = {this.state.keyword} setSearchResult = {this.setSearchResult.bind(this)}
+                          resetSearchResult = {this.resetSearchResult.bind(this)} disabled = {!this.state.isLoaded} />
+                        </div>
+                    </div>
+                ),
+            }}
+
               options = {{
                   showTitle: false,
                   search : false,
@@ -337,19 +355,7 @@ class Table extends Component {
                         emptyDataSourceMessage: 'No Data to Display',
                     }
                 }}
-                components={{
-                        Toolbar: props => (
-                                    <div style={{ display: 'flex', padding:'10px 0'}}>
-                                        <div>
-                                          <MTableToolbar {...props}  classes={{ root: "my-temp-class" }} />
-                                        </div>
-                                        <div style = {{  borderRadius: '5px', margin: 'auto'}}>
-                                          <SearchBar keyword = {this.state.keyword} setSearchResult = {this.setSearchResult.bind(this)} resetSearchResult = {this.resetSearchResult.bind(this)} disabled = {!this.state.isLoaded} />
-                                        </div>
-                                    </div>
-                                  ),
 
-                }}
              />
             <Modal columns = {this.state.columns} setSelectedCategoryData = {this.setSelectedCategoryData} disabled = {!this.state.isLoaded}/>
           </div>
