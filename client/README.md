@@ -1,6 +1,6 @@
 # Client
 This directory contains the client side of the project, built using ReactJS. <br />
-The directory doesn't contain database, REST API will not be executed. If you want to test with the database, you need to run the project in [db-chart-generator/server](../db-chart-generator/server).
+The directory doesn't contain database, REST API will not be executed. If you want to test with the database, you need to run the project in [db-chart-generator/server](../server).
 
 ### Available Scripts
 In the project directory, you can run:
@@ -10,9 +10,9 @@ In the project directory, you can run:
 
 ### Frameworks
 The client side of the project is built using:
-- Material UI ([https://material-ui.com/])
-⋅⋅⋅Database table - [https://material-table.com/#/]
+- Material UI (https://material-ui.com/)
+  - Database table - https://material-table.com/#/
 
-- HighChart ([https://www.highcharts.com/])
-⋅⋅⋅Bar chart -  https://www.highcharts.com/docs/chart-and-series-types/bar-chart
-⋅⋅⋅Pie chart - https://www.highcharts.com/docs/chart-and-series-types/pie-chart
+- HighChart (https://www.highcharts.com/)
+  - Bar chart -  https://www.highcharts.com/docs/chart-and-series-types/bar-chart
+  - Pie chart - https://www.highcharts.com/docs/chart-and-series-types/pie-chart
