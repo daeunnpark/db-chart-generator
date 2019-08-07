@@ -30,7 +30,7 @@ Minified versions for quick test are also available. <br />
 File Source: https://www.kaggle.com/shivamp629/traincsv
 
 
-#### Run the application (server, client with database)
+#### Run the application (server, client with database) using Gradle
 In [db-chart-generator/server](./server) directory, type `./gradlew build && java -jar build/libs/db-chart-generator.jar`. <br />
 Open http://localhost:8080 to view it in the browser. <br />
 See [db-chart-generator/server/README.md](./server/README.md) for details.
@@ -43,10 +43,10 @@ See [db-chart-generator/client/README.md](./client/README.md) for details.
 
 
 #### Run 3 tier docker using Docker
-In project root directory [db-chart-generator](./), type `docker-compose up --build`, which will create 3 containers as follows:
+In project root directory [db-chart-generator](.), type `docker-compose up --build`, which will create 3 containers as follows:
 
 - container-database
-  - Use credentials in [db-chart-generator/server](./server) to access to the database.
+  - Use credentials in [db-chart-generator/server/README.md](./server/README.md) to access to the database.
 - container-server
   - Open http://localhost:8080 to view it in the browser.
 - container-client
@@ -58,3 +58,4 @@ After running the application, type `docker-compose down` to remove containers.
 Docker Image is available here: https://hub.docker.com/r/daeupark/db-chart-generator
 
 ## Demo
+http://dbchartgenerator.us-east-1.elasticbeanstalk.com/
