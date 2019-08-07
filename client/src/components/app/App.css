@@ -1,11 +1,12 @@
 
-.App{
+/*.App{
   text-align: center;
 }
 
-.Section{
-  padding:20px;
+input{
+  display:none;
 }
+
 
 .chartContainer{
   border-color: #cccccc;
@@ -15,15 +16,18 @@
   padding:20px;
 }
 
-input{
-  display:none;
-}
 
 #updateChartsBtn{
   margin:50px;
+}
+
+
+.Section{
+  padding:20px;
 }
 
 #searchBar{
   border-radius: 5px;
   margin: auto;
 }
+*/

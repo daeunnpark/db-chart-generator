@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
+import Reset from '@material-ui/icons/Close';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import Reset from '@material-ui/icons/Close';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import * as styles from '../../constants/styles';
 
+const btn_style = styles.SEARCH_BTN;
+const wrapper_style = styles.SEARCHBAR_WRAPPER;
+const textField_style = styles.SEARCH_TEXTFIELD;
 /*
-Represent search bar in the database.
+Represents Search bar in Table component.
 */
 class SearchBar extends Component {
   constructor(props) {
@@ -17,17 +21,9 @@ class SearchBar extends Component {
   }
 
   componentDidMount() {
-
       this.setState({
         value: this.props.keyword
       });
-
-  }
-
-  handleChange = (event) => {
-    this.setState({
-      value: event.target.value
-    });
   }
 
   search = (event) => {
@@ -51,17 +47,23 @@ class SearchBar extends Component {
 
   }
 
-  iconClick  = (event) => {
+  handleReset = (event) => {
     this.setState({
       value : ''
     });
     this.props.resetSearchResult();
   }
 
+  handleChange = (event) => {
+    this.setState({
+      value: event.target.value
+    });
+  }
+
   render = () => {
       return (
-        <div style={{  display: 'inline-flex', margin:15}}>
-          <div style={{marginRight:20, marginBottom:10}}>
+        <div style={wrapper_style}>
+          <div style={textField_style}>
             <TextField
               id="standard-name"
               label="keyword"
@@ -70,14 +72,14 @@ class SearchBar extends Component {
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <Reset onClick = {this.iconClick}/>
+                    <Reset onClick = {this.handleReset}/>
                   </InputAdornment>
                 ),
               }}
             />
           </div>
-          <div style={{ alignSelf: 'center'}}>
-            <Button variant="outlined" color="inherit" onClick = {this.search} disabled = {this.props.disabled}>
+          <div style={btn_style}>
+            <Button onClick = {this.search} disabled = {this.props.disabled} variant="outlined" color="inherit">
               Search
             </Button>
           </div>
@@ -86,5 +88,6 @@ class SearchBar extends Component {
   }
 
 }
+
 
 export default SearchBar;

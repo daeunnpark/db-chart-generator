@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
-import MaterialTable, { MTableToolbar, MTablePagination } from 'material-table';
-
-import Button from '@material-ui/core/Button';
-import SearchBar from './SearchBar';
 import Papa from 'papaparse';
-import { default as Modal } from '../feedback/Modal';
-import { default as Alert } from '../feedback/Alert';
-import "../app/App.css"
+import Button from '@material-ui/core/Button';
+import { TablePagination } from '@material-ui/core';
+import MaterialTable, { MTableToolbar } from 'material-table';
+import SelectCategoryModal from '../dialog/SelectCategoryModal';
+import DbUpdateAlert from '../dialog/DbUpdateAlert';
+import SearchBar from './SearchBar';
+import * as styles from '../../constants/styles';
+
+const toolbar_style = styles.TOOLBAR;
+const table_style = styles.TABLE;
+const container_style = styles.SEARCHBAR_CONTAINER;
+const section_style = styles.SECTION;
+const input_style = styles.INPUT;
 
 /*
-Represents visual representation of actual database.
+ Represents database
 */
 class Table extends Component {
   constructor(props) {
@@ -23,17 +29,18 @@ class Table extends Component {
       dataCopy:[],
       keyword:'',
     };
-    this._pagination = React.createRef();
   }
 
   parseCsv = (event) => {
 
-    Papa.parse(event.target.files[0], {
-      header: true,
-      skipEmptyLines: true,
-      dynamicTyping: true,
-      complete: this.updateTable
-    });
+    if(event.target.files[0]!==undefined){
+      Papa.parse(event.target.files[0], {
+        header: true,
+        skipEmptyLines: true,
+        dynamicTyping: true,
+        complete: this.updateTable
+      });
+    }
   }
 
   parseData_table = (result) => {
@@ -45,10 +52,10 @@ class Table extends Component {
       parsedColumns.push({
         title: field.toUpperCase(),
         field: field.toLowerCase(),
-        cellStyle: style,
+        cellStyle: table_style,
       });
     });
-    (parsedColumns[0])['editable']='onAdd'; //readonly
+    (parsedColumns[0])['editable']='onAdd';
 
     result.data.forEach(function(data) {
       let newData = {};
@@ -78,21 +85,18 @@ class Table extends Component {
         this.setState({
           columns: newColumns,
           data: newData,
-          dataCopy: [...newData]
-        });
-        this.setAlert(true);
-        this.setState({
-          //isLoading: false,
+          dataCopy: [...newData],
           isLoaded: true
         });
-       } else{
+        this.setAlert(true);
+       } else {
          this.setAlert(false);
        }
        this.setState({
         isLoading: false,
        });
 
-    });//.catch(failureCallback);
+    });
 }
 
   addAllDataToDb = (data) => {
@@ -113,7 +117,7 @@ class Table extends Component {
           return true;
       })
       .catch(function(error) {
-        window.alert('There has been a problem with your fetch operation: ' + error.message);
+        window.alert('There has been a problem with your network: ' + error.message);
       });
   }
 
@@ -135,7 +139,7 @@ class Table extends Component {
           return true;
       })
       .catch(function(error) {
-        window.alert('There has been a problem with your fetch operation: ' + error.message);
+        window.alert('There has been a problem with your network: ' + error.message);
       });
   }
 
@@ -157,7 +161,7 @@ class Table extends Component {
           return true;
       })
       .catch(function(error) {
-        window.alert('There has been a problem with your fetch operation: ' + error.message);
+        window.alert('There has been a problem with your network: ' + error.message);
       });
   }
 
@@ -179,7 +183,7 @@ class Table extends Component {
           return true;
       })
       .catch(function(error) {
-        window.alert('There has been a problem with your fetch operation: ' + error.message);
+        window.alert('There has been a problem with your network: ' + error.message);
       });
   }
 
@@ -225,7 +229,6 @@ class Table extends Component {
       keyword: newKeyword,
       data: newData,
     });
-    this._pagination.current.handleFirstPageButtonClick();
   }
 
   resetSearchResult  = () => {
@@ -239,12 +242,13 @@ class Table extends Component {
       return (
         <div>
           <h1>DB chart generator</h1>
-          <div className = 'Section'>
+          <div style = {section_style}>
             <input
               id="contained-button-file"
               type="file"
               accept=".csv"
               onChange = {this.parseCsv}
+              style = {input_style}
             />
             <label htmlFor="contained-button-file">
               <Button id = 'uploadBtn' variant="contained" color="primary" component="span">
@@ -254,26 +258,11 @@ class Table extends Component {
 
             <h2>Database Table</h2>
             <MaterialTable
-              components={{
-                Pagination: props =>(<MTablePagination {...props} ref = {this._pagination}/>),
-                Toolbar: props => (
-                    <div style={{ display: 'flex', padding:'10px 0'}}>
-                        <div>
-                          <MTableToolbar {...props}  classes={{ root: "my-temp-class" }} />
-                        </div>
-                        <div id = "searchBar">
-                          <SearchBar keyword = {this.state.keyword} setSearchResult = {this.setSearchResult.bind(this)}
-                          resetSearchResult = {this.resetSearchResult.bind(this)} disabled = {!this.state.isLoaded} />
-                        </div>
-                    </div>
-                ),
-            }}
-
               options = {{
                   showTitle: false,
                   search : false,
                   toolbarButtonAlignment: 'left',
-                  headerStyle: style,
+                  headerStyle: table_style,
                   addRowPosition:'first',
                   emptyRowsWhenPaging: false
               }}
@@ -282,90 +271,108 @@ class Table extends Component {
               data= {this.state.data}
               editable = {{
                 onRowAdd: newData =>
-                 new Promise((resolve, reject) => {
-                     setTimeout(() => {
-                            this.addDataToDb(newData).then(success => {
-                               if(success){
-                                  const ndata = this.state.data;
-                                  ndata.push(newData);
+                  new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                      this.addDataToDb(newData).then(success => {
+                        if(success){
+                          const ndata = this.state.data;
+                          ndata.push(newData);
 
-                                  const ndataCopy = this.state.dataCopy;
-                                  ndataCopy.push(newData);
+                          const ndataCopy = this.state.dataCopy;
+                          ndataCopy.push(newData);
 
-                                  this.setState({ data:ndata, dataCopy: ndataCopy}, () => resolve());
-                                  this.setAlert(true);
+                          this.setState({ data:ndata, dataCopy: ndataCopy}, () => resolve());
+                          this.setAlert(true);
+                        } else {
+                          reject();
+                          this.setAlert(false);
+                        }
+                      });
+                    }, 1000);
+                  }),
+                onRowUpdate: (newData, oldData) =>
+                  new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                      this.updateDataInDb(newData).then(success => {
+                        if(success){
+                          const ndata = this.state.data;
+                          const index = ndata.indexOf(oldData);
+                          ndata[index] = newData;
 
-                                } else{
-                                  reject();
-                                  this.setAlert(false);
-                                }
-                            });
-                     }, 1000);
-                 }),
-               onRowUpdate: (newData, oldData) =>
-                 new Promise((resolve, reject) => {
-                   setTimeout(() => {
-                       this.updateDataInDb(newData).then(success => {
-                          if(success){
-                            const ndata = this.state.data;
-                            const index = ndata.indexOf(oldData);
-                            ndata[index] = newData;
+                          const ndataCopy = this.state.dataCopy;
+                          var index_copy = ndataCopy.findIndex(a=> a.passengerid === oldData["passengerid"]);
+                          ndataCopy[index_copy] = newData;
 
-                            const ndataCopy = this.state.dataCopy;
-                            var index_copy = ndataCopy.findIndex(a=> a.passengerid == oldData["passengerid"]);
-                            ndataCopy[index_copy] = newData;
+                          this.setState({ data:ndata, dataCopy: ndataCopy}, () => resolve());
+                          this.setAlert(true);
+                         } else {
+                           reject();
+                           this.setAlert(false);
+                         }
+                      });
+                    }, 1000)
+                  }),
+                onRowDelete: oldData =>
+                  new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                      this.deleteDataFromDb(oldData).then(success => {
+                        if(success){
+                        let ndata = this.state.data;
+                        const index = ndata.indexOf(oldData);
+                        ndata.splice(index, 1);
 
-                            this.setState({ data:ndata, dataCopy: ndataCopy}, () => resolve());
-                            this.setAlert(true);
-                           } else{
-                             reject();
-                             this.setAlert(false);
-                           }
-                       });
-                   }, 1000)
-                 }),
-               onRowDelete: oldData =>
-                 new Promise((resolve, reject) => {
-                   setTimeout(() => {
-                       this.deleteDataFromDb(oldData).then(success => {
-                            if(success){
-                            let ndata = this.state.data;
-                            const index = ndata.indexOf(oldData);
-                            ndata.splice(index, 1);
+                        let ndataCopy = this.state.dataCopy;
+                        var index_copy = ndataCopy.findIndex(a=> a.passengerid === oldData["passengerid"]);
+                        ndataCopy.splice(index_copy,1);
 
-                            let ndataCopy = this.state.dataCopy;
-                            var index_copy = ndataCopy.findIndex(a=> a.passengerid == oldData["passengerid"]);
-                            ndataCopy.splice(index_copy,1);
-
-                            this.setState({ data:ndata, dataCopy: ndataCopy}, () => resolve());
-                            this.setAlert(true);
-                           } else{
-                             reject();
-                            this.setAlert(false);
-                           }
-                       });
-                   }, 1000)
-                 }),
-               }}
-               localization={{
-                    header: {
-                        actions: ''
-                    },
-                    body: {
-                        emptyDataSourceMessage: 'No Data to Display',
-                    }
-                }}
-
+                        this.setState({ data:ndata, dataCopy: ndataCopy}, () => resolve());
+                        this.setAlert(true);
+                        } else{
+                         reject();
+                        this.setAlert(false);
+                        }
+                      });
+                    }, 1000)
+                  })
+              }}
+              components={{
+                Toolbar: props => (
+                 <div style={toolbar_style}>
+                     <div>
+                       <MTableToolbar {...props} />
+                     </div>
+                     <div style = {container_style}>
+                       <SearchBar
+                         keyword = {this.state.keyword}
+                         setSearchResult = {this.setSearchResult.bind(this)}
+                         resetSearchResult = {this.resetSearchResult.bind(this)}
+                         disabled = {!this.state.isLoaded} />
+                     </div>
+                 </div>
+                ),
+                Pagination: props =>(
+                  <TablePagination {...props}/>
+                )
+              }}
+              localization={{
+                  header: {
+                      actions: ''
+                  },
+                  body: {
+                      emptyDataSourceMessage: 'No Data to Display',
+                  }
+              }}
              />
-            <Modal columns = {this.state.columns} setSelectedCategoryData = {this.setSelectedCategoryData} disabled = {!this.state.isLoaded}/>
+           <SelectCategoryModal
+             columns = {this.state.columns}
+             disabled = {!this.state.isLoaded}
+             setSelectedCategoryData = {this.setSelectedCategoryData}/>
           </div>
-          <Alert success= {this.state.success}/>
+          <DbUpdateAlert success= {this.state.success}/>
         </div>
       );
     }
 }
-
-const style = { padding:'0 8px'}
 
 
 export default Table;

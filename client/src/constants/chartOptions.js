@@ -1,6 +1,6 @@
-// Constant variables for default chart options - Chart.js
+// Constants for default Highchart options in Chart.js
 
-export const SOURCE= 'Source: kaggle';
+export const SOURCE = 'Source: kaggle';
 
 export const BAR = {
   chart: {
@@ -13,11 +13,11 @@ export const BAR = {
     text: ''
   },
   xAxis: {
-    visible:false,
+    visible: false,
     categories: []
   },
   yAxis: {
-    visible:false,
+    visible: false,
     min: 0,
     tickInterval: 1,
     title: {
@@ -46,14 +46,14 @@ export const BAR = {
     data: []
   }],
   lang: {
-        noData: "No Data to Display"
-    },
+    noData: "No Data to Display"
+  },
   noData: {
-      style: {
-          fontWeight: 'bold',
-          fontSize: '15px',
-          color: '#303030'
-      }
+    style: {
+      fontWeight: 'bold',
+      fontSize: '15px',
+      color: '#303030'
+    }
   }
 };
 
@@ -89,18 +89,13 @@ export const PIE = {
     data: []
   }],
   lang: {
-        noData: "No Data to Display"
-    },
+    noData: "No Data to Display"
+  },
   noData: {
-      style: {
-          fontWeight: 'bold',
-          fontSize: '15px',
-          color: '#303030'
-      }
+    style: {
+      fontWeight: 'bold',
+      fontSize: '15px',
+      color: '#303030'
+    }
   }
 };
-
-/*
-export const HISTO require('highcharts/modules/histogram-bellcurve');
-export const NODATA require('highcharts/modules/no-data-to-display.js');
-*/

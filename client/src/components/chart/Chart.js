@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
-import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
+import Highcharts from 'highcharts'
+import * as styles from '../../constants/styles';
 import * as defaultOptions from '../../constants/chartOptions';
 require('highcharts/modules/histogram-bellcurve')(Highcharts);
 require('highcharts/modules/no-data-to-display.js')(Highcharts);
 
-
 const source = defaultOptions.SOURCE;
 const defaultOptions_bar = defaultOptions.BAR;
 const defaultOptions_pie = defaultOptions.PIE;
+const section_style = styles.SECTION;
+const container_style = styles.CHART_CONTAINER;
 
 /*
-Represents chart section containig a bar chart and a pie chart.
+Represents Chart component containig a bar chart and a pie chart.
 */
 class Chart extends Component {
   constructor(props) {
@@ -104,14 +106,14 @@ class Chart extends Component {
 
   render(){
     return(
-      <div className= 'Section'>
+      <div style = {section_style}>
         <h2>Charts</h2>
-          <div className = 'chartContainer'>
+          <div style = {container_style}>
             <HighchartsReact
               highcharts={Highcharts}
               options = {this.state.barChart}/>
             </div>
-          <div className = 'chartContainer'>
+          <div style = {container_style}>
             <HighchartsReact
               highcharts={Highcharts}
               options = {this.state.pieChart}/>

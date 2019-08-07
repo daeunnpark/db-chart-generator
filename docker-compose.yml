@@ -1,6 +1,16 @@
 version: '3'
 
 services:
+  db:
+    container_name: container-database
+    image: mysql:latest
+    ports:
+      - '3306:3306'
+    environment:
+      - MYSQL_ROOT_PASSWORD=ezops
+      - MYSQL_DATABASE=ezops
+      - MYSQL_PASSWORD=ezopsezops
+
   server:
     container_name: container-server
     build:
@@ -29,13 +39,3 @@ services:
     ports:
       - '3000:3000'
     command: npm start
-
-  db:
-    container_name: container-database
-    image: mysql:latest
-    ports:
-      - '13306:3306'
-    environment:
-      - MYSQL_ROOT_PASSWORD=ezops
-      - MYSQL_DATABASE=ezops
-      - MYSQL_PASSWORD=ezopsezops

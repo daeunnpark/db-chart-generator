@@ -14,6 +14,7 @@ Database          | Mysql5 - Hibernate Search-ORM 5.10.6
 Server Build      | Gradle 5.4.1
 Client Build      | npm 5.6.0, yarn 1.10.1
 Containerization  | Docker 19.03.1, Docker Compose 1.24.1
+Deployment        | AWS EC2, RDS
 
 
 
@@ -21,13 +22,20 @@ Containerization  | Docker 19.03.1, Docker Compose 1.24.1
 #### Prerequisites
 - Java 8
 - Node.js 8
-- Docker 19 (if you want to run with Docker)
+- Docker 19, Docker-compose 1 (if you want to run with Docker)
 
 
 ### How to Run
 Note: Use provided CSV files in [db-chart-generator/CSV](./CSV) to test. <br />
 Minified versions for quick test are also available. <br />
 File Source: https://www.kaggle.com/shivamp629/traincsv
+
+**Local Database Credentials**
+- Host URL: localhost:3306
+- Database Name: ezops
+- Root password: ezopsezops
+- Username: admin
+- Password: ezopsezops
 
 
 #### Run the application (server, client with database) using Gradle
@@ -46,7 +54,7 @@ See [db-chart-generator/client/README.md](./client/README.md) for details.
 In project root directory [db-chart-generator](.), type `docker-compose up --build`, which will create 3 containers as follows:
 
 - container-database
-  - Use credentials in [db-chart-generator/server/README.md](./server/README.md) to access to the database.
+  - Use local database credentials to access to the database.
 - container-server
   - Open http://localhost:8080 to view it in the browser.
 - container-client
@@ -59,3 +67,8 @@ Docker Image is available here: https://hub.docker.com/r/daeupark/db-chart-gener
 
 ## Demo
 http://dbchartgenerator.us-east-1.elasticbeanstalk.com/
+**Remote Database Credentials**
+- Host URL: db-ezops.cehiv9m1bmcz.us-east-1.rds.amazonaws.com
+- Username: admin
+- Password: ezopsezops
+- Database name: ezops
