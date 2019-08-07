@@ -66,7 +66,7 @@ After running the application, type `docker-compose down` to remove containers.
 Docker Image is available here: https://hub.docker.com/r/daeupark/db-chart-generator
 
 ## Demo
-http://dbchartgenerator.us-east-1.elasticbeanstalk.com/
+http://dbchartgenerator.us-east-1.elasticbeanstalk.com/ <br />
 **Remote Database Credentials**
 - Host URL: db-ezops.cehiv9m1bmcz.us-east-1.rds.amazonaws.com
 - Username: admin
