@@ -72,3 +72,10 @@ http://dbchartgenerator.us-east-1.elasticbeanstalk.com/ <br />
 - Username: admin
 - Password: ezopsezops
 - Database name: ezops
+
+### Screenshots
+![First Page](https://user-images.githubusercontent.com/30763506/62891380-91397180-bd13-11e9-9c8c-d22120e2adcb.png)
+![File loaded](https://user-images.githubusercontent.com/30763506/62891381-91397180-bd13-11e9-9941-4b23e8f5d6ee.png)
+![Search](https://user-images.githubusercontent.com/30763506/62891382-91397180-bd13-11e9-9652-fada00a40a2d.png)
+![Select Category](https://user-images.githubusercontent.com/30763506/62891383-91397180-bd13-11e9-8e6a-e68737970cbf.png)
+![Charts](https://user-images.githubusercontent.com/30763506/62891555-fd1bda00-bd13-11e9-880b-731f719ae470.png)
